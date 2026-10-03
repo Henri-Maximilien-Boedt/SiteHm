@@ -1,0 +1,65 @@
+- main [ref=f274e2]:
+  - generic [ref=f274e4]:
+    - generic [ref=f274e5]: 15%
+    - generic [ref=f274e6]: Henri-Maximilien BoedtNocturnela chambre noire
+  - generic [ref=f274e7]:
+    - link "HMB · studio" [ref=f274e8] [cursor=pointer]:
+      - /url: /fr
+    - navigation [ref=f274e9]:
+      - generic [ref=f274e10]: Luxembourg / Belgique
+      - generic [ref=f274e12]:
+        - text: FR /
+        - link "EN" [ref=f274e13] [cursor=pointer]:
+          - /url: /en/
+      - button "Son ◦ off" [ref=f274e14] [cursor=pointer]
+  - region "Galerie" [ref=f274e15]:
+    - generic [ref=f274e16]:
+      - figure "Séoul · DDP" [ref=f274e17]:
+        - img "Séoul · DDP" [ref=f274e18]
+      - figure "Ukai · pêche au feu" [ref=f274e20]:
+        - img "Ukai · pêche au feu" [ref=f274e21]
+      - figure "Osaka · nuit" [ref=f274e23]:
+        - img "Osaka · nuit" [ref=f274e24]
+      - figure "Etna" [ref=f274e26]:
+        - img "Etna" [ref=f274e27]
+      - figure "Feu sur l'eau" [ref=f274e29]:
+        - img "Feu sur l'eau" [ref=f274e30]
+      - figure "Séoul · DDP" [ref=f274e32]:
+        - img "Séoul · DDP" [ref=f274e33]
+      - figure "Spa · motorsport" [ref=f274e35]:
+        - img "Spa · motorsport" [ref=f274e36]
+      - figure "Lac · crépuscule" [ref=f274e38]:
+        - img "Lac · crépuscule" [ref=f274e39]
+      - figure "Séoul · DDP" [ref=f274e41]:
+        - img "Séoul · DDP" [ref=f274e42]
+      - figure "Osaka · heure bleue" [ref=f274e44]:
+        - img "Osaka · heure bleue" [ref=f274e45]
+      - figure "Pleine lune" [ref=f274e47]:
+        - img "Pleine lune" [ref=f274e48]
+      - figure "Séoul · DDP" [ref=f274e50]:
+        - img "Séoul · DDP" [ref=f274e51]
+      - figure "Busan · Petit Prince" [ref=f274e53]:
+        - img "Busan · Petit Prince" [ref=f274e54]
+      - figure "Osaka · canal" [ref=f274e56]:
+        - img "Osaka · canal" [ref=f274e57]
+      - figure "Alpes" [ref=f274e59]:
+        - img "Alpes" [ref=f274e60]
+      - figure "Pit lane" [ref=f274e62]:
+        - img "Pit lane" [ref=f274e63]
+    - generic:
+      - paragraph: Photographe · Développeur web
+      - heading "Henri-Maximilien Boedt" [level=1]:
+        - generic: Henri-Maximilien
+        - generic: Boedt
+      - paragraph: Je photographie la lumière dans le noir. Je construis des sites qui font la même chose.
+    - navigation "Entrées" [ref=f274e65]:
+      - link "la série Photographie" [ref=f274e66] [cursor=pointer]:
+        - /url: /fr/photographie
+        - generic [ref=f274e67]: la série
+        - heading "Photographie" [level=2] [ref=f274e68]
+        - generic [aria-hidden] [ref=f274e69]: →
+      - link "le studio Travail" [ref=f274e71] [cursor=pointer]:
+        - /url: /fr/travail
+        - generic [ref=f274e72]: le studio
+        - heading "Travail" [level=2] [ref=f274e73]
+        - generic [aria-hidden] [ref=f274e74]: →

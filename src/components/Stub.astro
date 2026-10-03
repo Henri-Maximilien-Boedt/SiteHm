@@ -1,0 +1,21 @@
+---
+import { type Lang } from '../i18n/ui';
+interface Props { lang: Lang; title: string }
+const { lang, title } = Astro.props;
+---
+<section class="stub">
+  <a class="back u-mono" href={`/${lang}`}>← {lang === 'fr' ? 'Accueil' : 'Home'}</a>
+  <p class="u-eyebrow">{lang === 'fr' ? 'En construction' : 'Under construction'}</p>
+  <h1>{title}</h1>
+  <p class="note u-mono">
+    {lang === 'fr'
+      ? 'Page en cours de portage depuis le prototype Nocturne.'
+      : 'Page being ported from the Nocturne prototype.'}
+  </p>
+</section>
+<style>
+  .stub { min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; gap: 1rem; padding: 0 6vw; }
+  .back { position: fixed; top: 1.7rem; left: 2.4rem; text-decoration: none; color: var(--ink); font-size: var(--step--1); }
+  h1 { font-family: var(--font-display); font-weight: 600; font-size: var(--step-hero); letter-spacing: -.04em; line-height: .85; text-transform: uppercase; }
+  .note { color: var(--muted); letter-spacing: .06em; text-transform: uppercase; font-size: var(--step--1); }
+</style>

@@ -1,0 +1,81 @@
+- generic [active] [ref=f2e1]:
+  - generic [ref=f2e2]:
+    - generic [ref=f2e3]: 0%
+    - generic [ref=f2e4]: Henri-Maximilien BoedtNocturne · éd. Ala chambre noire
+  - generic: drag
+  - banner [ref=f2e5]:
+    - generic [ref=f2e6]: HMB · studio
+    - navigation [ref=f2e7]:
+      - generic [ref=f2e8]: Luxembourg / Belgique
+      - generic [ref=f2e10]:
+        - button "FR" [ref=f2e11] [cursor=pointer]
+        - text: /
+        - button "EN" [ref=f2e12] [cursor=pointer]
+      - button "Son ◦ off" [ref=f2e13] [cursor=pointer]
+  - main [ref=f2e14]:
+    - generic [ref=f2e15]:
+      - generic [ref=f2e16]:
+        - img "Séoul · DDP" [ref=f2e17]
+        - text: Séoul · DDP
+      - generic [ref=f2e18]:
+        - img "Ukai · pêche au feu" [ref=f2e19]
+        - text: Ukai · pêche au feu
+      - generic [ref=f2e20]:
+        - img "Osaka · nuit" [ref=f2e21]
+        - text: Osaka · nuit
+      - generic [ref=f2e22]:
+        - img "Etna" [ref=f2e23]
+        - text: Etna
+      - generic [ref=f2e24]:
+        - img "Feu sur l'eau" [ref=f2e25]
+        - text: Feu sur l'eau
+      - generic [ref=f2e26]:
+        - img "Séoul · DDP" [ref=f2e27]
+        - text: Séoul · DDP
+      - generic [ref=f2e28]:
+        - img "Spa · motorsport" [ref=f2e29]
+        - text: Spa · motorsport
+      - generic [ref=f2e30]:
+        - img "Lac · crépuscule" [ref=f2e31]
+        - text: Lac · crépuscule
+      - generic [ref=f2e32]:
+        - img "Séoul · DDP" [ref=f2e33]
+        - text: Séoul · DDP
+      - generic [ref=f2e34]:
+        - img "Osaka · heure bleue" [ref=f2e35]
+        - text: Osaka · heure bleue
+      - generic [ref=f2e36]:
+        - img "Pleine lune" [ref=f2e37]
+        - text: Pleine lune
+      - generic [ref=f2e38]:
+        - img "Séoul · DDP" [ref=f2e39]
+        - text: Séoul · DDP
+      - generic [ref=f2e40]:
+        - img "Busan · Petit Prince" [ref=f2e41]
+        - text: Busan · Petit Prince
+      - generic [ref=f2e42]:
+        - img "Osaka · canal" [ref=f2e43]
+        - text: Osaka · canal
+      - generic [ref=f2e44]:
+        - img "Alpes" [ref=f2e45]
+        - text: Alpes
+      - generic [ref=f2e46]:
+        - img "Pit lane" [ref=f2e47]
+        - text: Pit lane
+    - generic:
+      - generic: Photographe · Développeur web
+      - heading "Henri-Maximilien Boedt" [level=1]:
+        - generic: Henri-Maximilien
+        - generic: Boedt
+      - paragraph: Je photographie la lumière dans le noir. Je construis des sites qui font la même chose.
+    - generic [ref=f2e48]:
+      - link "la série Photographie →" [ref=f2e49] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=f2e50]: la série
+        - heading "Photographie" [level=2] [ref=f2e51]
+        - generic [ref=f2e52]: →
+      - link "le studio Travail →" [ref=f2e54] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=f2e55]: le studio
+        - heading "Travail" [level=2] [ref=f2e56]
+        - generic [ref=f2e57]: →

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Séoul · série photo (maquette Nocturne)</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09090A;--ink:#F3EFE8;--muted:#5e5e66;--ember:#E8541B;
+  --display:"Clash Display",system-ui,sans-serif;--body:"Satoshi",system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.05;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* top bar */
+header{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 2.2rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;mix-blend-mode:difference}
+header a{color:var(--ink);text-decoration:none}
+header .back{display:flex;gap:.6rem;align-items:center}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--ember);width:0;z-index:50;box-shadow:0 0 12px var(--ember)}
+
+/* hero */
+.hero{position:relative;height:100dvh;overflow:hidden}
+.hero .cover{position:absolute;inset:0}
+.hero .cover img{width:100%;height:112%;object-fit:cover;filter:brightness(.55) grayscale(.35) contrast(1.1);transform:translateY(-6%)}
+.hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,9,10,.5),rgba(9,9,10,.2) 40%,rgba(9,9,10,.95))}
+.hero .wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5vw 7vh}
+.kicker{font-family:var(--mono);font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ember);margin-bottom:1rem}
+.hero h1{font-family:var(--display);font-weight:600;font-size:clamp(4rem,18vw,18rem);line-height:.8;letter-spacing:-.04em;text-transform:uppercase}
+.hero .meta{display:flex;gap:2.4rem;flex-wrap:wrap;margin-top:1.6rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#bdb8ae}
+.hero .meta b{color:var(--ink);font-weight:400}
+.badge{position:absolute;top:14vh;right:5vw;font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.8}
+.badge .em{color:var(--ember)}
+
+/* intro */
+.intro{max-width:62ch;margin:14vh auto;padding:0 5vw;font-size:clamp(1.3rem,2.6vw,2.1rem);line-height:1.4;font-weight:500}
+.intro .mut{color:var(--muted)}
+.note{max-width:62ch;margin:-8vh auto 0;padding:0 5vw;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+
+/* narrative frames */
+.story{padding:6vh 0 2vh}
+.frame{position:relative;overflow:hidden;margin:0 auto;opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
+.frame.in{opacity:1;transform:none}
+.frame img{width:100%;height:100%;object-fit:cover;cursor:zoom-in;transition:filter .6s}
+.frame .cap{position:absolute;left:1.2rem;bottom:1rem;font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-shadow:0 1px 12px #000;z-index:2}
+.frame .cap .ex{color:var(--muted)}
+.full{height:120vh;width:100%}
+.full img{height:130%}                                   /* parallax overscan */
+.wide{width:90vw;height:78vh;border-radius:1px}
+.half{height:86vh}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:1.4vw;width:92vw;margin:5vh auto;align-items:center}
+.row.off{grid-template-columns:1.4fr 1fr}
+.single{width:68vw;height:94vh;margin:7vh auto}
+.single.right{margin-right:5vw;margin-left:auto}
+.single.left{margin-left:5vw}
+.csnip{max-width:40ch;font-size:1.05rem;line-height:1.5;color:#cfc9bf;align-self:center}
+.csnip .t{font-family:var(--display);font-size:1.6rem;display:block;margin-bottom:.6rem;color:var(--ink)}
+
+/* next */
+.next{height:70vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;border-top:1px solid rgba(243,239,232,.1);margin-top:8vh}
+.next a{font-family:var(--display);font-weight:500;font-size:clamp(2.4rem,8vw,7rem);color:var(--ink);text-decoration:none;letter-spacing:-.03em;transition:color .4s}
+.next a:hover{color:var(--ember)}
+.next .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:90;background:rgba(5,5,6,.96);display:none;align-items:center;justify-content:center;flex-direction:column;cursor:zoom-out;backdrop-filter:blur(6px)}
+.lb.open{display:flex}
+.lb img{max-width:90vw;max-height:80vh;object-fit:contain;box-shadow:0 30px 120px rgba(0,0,0,.7)}
+.lb .lcap{margin-top:1.2rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#bdb8ae}
+.lb .nav{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--display);font-size:3rem;color:var(--ink);cursor:pointer;padding:0 2.2vw;opacity:.6;user-select:none}
+.lb .nav:hover{opacity:1;color:var(--ember)}
+.lb .prev{left:0}.lb .next{right:0}
+.lb .close{position:absolute;top:1.6rem;right:2rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#bdb8ae;cursor:pointer}
+
+@media (max-width:720px){
+  .row,.row.off{grid-template-columns:1fr}.single{width:88vw;height:70vh}.full{height:80vh}.full img{height:110%}
+  .csnip{padding:0 6vw}.wide{width:92vw;height:56vh}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}*{transition:none!important}.frame{opacity:1;transform:none}
+  .hero .cover img{transform:none;height:100%}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="progress" id="prog"></div>
+
+<header>
+  <a class="back" href="./a-nocturne.html">← Accueil</a>
+  <span>Séoul · 01 / 04 séries</span>
+  <span><b style="color:var(--ink)">FR</b> / EN</span>
+</header>
+
+<section class="hero">
+  <div class="cover" data-par="0.18"><img src="./assets/DSC_2904.jpg" alt="Séoul, Dongdaemun Design Plaza"></div>
+  <div class="scrim"></div>
+  <div class="badge">
+    scroll ↓ flou de vélocité actif<br>
+    <span class="em">motorsport ⚡ flou ×3</span>
+  </div>
+  <div class="wrap">
+    <div class="kicker">Série 01 · Corée du Sud</div>
+    <h1>Séoul</h1>
+    <div class="meta">
+      <span><b>14 cadres</b> · 2024</span>
+      <span>Nikon Z6III</span>
+      <span>28·75 mm f/2.8</span>
+      <span class="em" style="color:var(--ember)">Dongdaemun · nuit · rue</span>
+    </div>
+  </div>
+</section>
+
+<p class="intro">Une ville qui se lit en <span class="mut">courbes d'acier et en néons</span>. Le Dongdaemun Design Plaza, la rue, le fleuve, à l'heure où la lumière devient rare.</p>
+<p class="note">// texte de série définitif à venir depuis content/seoul.fr.md · ne pas inventer</p>
+
+<div class="story" id="story">
+
+  <div class="frame full" data-par="0.12">
+    <img src="./assets/DSC_2693.jpg" alt="Escalier du DDP, Séoul">
+    <div class="cap">DDP · escalier <span class="ex">· 28mm · f/2.8 · 1/1000s · ISO100</span></div>
+  </div>
+
+  <div class="row">
+    <div class="frame half" data-par="0.1">
+      <img src="./assets/DSC_2891.jpg" alt="DDP, plafond">
+      <div class="cap">DDP · voûte <span class="ex">· 75mm · f/2.8 · ISO1000</span></div>
+    </div>
+    <div class="frame half" data-par="0.16">
+      <img src="./assets/DSC_2895.jpg" alt="DDP, caverne">
+      <div class="cap">DDP · caverne <span class="ex">· 47mm · f/2.8</span></div>
+    </div>
+  </div>
+
+  <div class="frame single right" data-par="0.14">
+    <img src="./assets/DSC_2880.jpg" alt="Courbes du DDP">
+    <div class="cap">DDP · courbes <span class="ex">· 75mm · f/2.8 · 1/125s</span></div>
+  </div>
+
+  <div class="frame full" data-par="0.1">
+    <img src="./assets/DSC_2753.jpg" alt="Rue de marché, Séoul">
+    <div class="cap">Hongdae · la rue <span class="ex">· 62mm · f/2.8 · 1/2500s</span></div>
+  </div>
+
+  <div class="row off">
+    <div class="frame half" data-par="0.12">
+      <img src="./assets/DSC_2915.jpg" alt="Reflet de verre teinté">
+      <div class="cap">Verre · reflet <span class="ex">· 1/125s · ISO100</span></div>
+    </div>
+    <div class="csnip"><span class="t">Entre les tours.</span>Le verre renvoie la ville à elle-même, turquoise. <span style="color:var(--muted)">// légende définitive à venir.</span></div>
+  </div>
+
+  <div class="frame single left" data-par="0.14">
+    <img src="./assets/DSC_2706.jpg" alt="DDP et ciel">
+    <div class="cap">DDP · béton & ciel <span class="ex">· 40mm · f/2.8</span></div>
+  </div>
+
+  <div class="frame wide" data-par="0.1" style="margin:6vh auto">
+    <img src="./assets/DSC_2816.jpg" alt="Séoul depuis Namsan">
+    <div class="cap">Namsan · panorama <span class="ex">· 75mm · f/2.8</span></div>
+  </div>
+
+  <div class="frame full" data-par="0.12">
+    <img src="./assets/DSC_2939.jpg" alt="Namsan Tower, ciel d'orage">
+    <div class="cap">Namsan Tower · orage <span class="ex">· 1/80s · ISO100</span></div>
+  </div>
+
+</div>
+
+<div class="next">
+  <span class="k">Série suivante</span>
+  <a href="#">Motorsport →</a>
+</div>
+
+<div class="lb" id="lb">
+  <span class="close" id="lbClose">✕ fermer (esc)</span>
+  <span class="nav prev" id="lbPrev">‹</span>
+  <img id="lbImg" src="" alt="">
+  <span class="lcap" id="lbCap"></span>
+  <span class="nav next" id="lbNext">›</span>
+</div>
+
+<script>
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* scroll progress */
+const prog=document.getElementById('prog');
+/* reveal on scroll */
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});
+document.querySelectorAll('.frame').forEach(f=>io.observe(f));
+
+/* parallax + velocity blur */
+const pars=[...document.querySelectorAll('[data-par]')];
+let last=scrollY,vel=0;
+function frame(){
+  const h=document.documentElement.scrollHeight-innerHeight;
+  prog.style.width=(scrollY/h*100)+'%';
+  // velocity
+  const dv=scrollY-last;last=scrollY;vel+=(dv-vel)*.2;
+  const blur=Math.min(14,Math.abs(vel)*0.18);
+  if(!reduce){
+    pars.forEach(el=>{const r=el.getBoundingClientRect();const mid=r.top+r.height/2-innerHeight/2;
+      const sp=parseFloat(el.dataset.par)||.1;const img=el.querySelector('img')||el;
+      img.style.transform=`translateY(${(-mid*sp)}px)`;});
+    document.querySelectorAll('.frame img').forEach(i=>{i.style.filter=`blur(${blur}px)`});
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+/* lightbox */
+const imgs=[...document.querySelectorAll('.frame img')];
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
+let idx=0;
+function openLB(i){idx=(i+imgs.length)%imgs.length;const im=imgs[idx];lbImg.src=im.src;
+  lbCap.textContent=(im.closest('.frame').querySelector('.cap')?.textContent||im.alt).replace(/·/g,'·');lb.classList.add('open')}
+imgs.forEach((im,i)=>im.addEventListener('click',()=>openLB(i)));
+document.getElementById('lbClose').onclick=()=>lb.classList.remove('open');
+lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open')});
+document.getElementById('lbPrev').onclick=e=>{e.stopPropagation();openLB(idx-1)};
+document.getElementById('lbNext').onclick=e=>{e.stopPropagation();openLB(idx+1)};
+addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowRight')openLB(idx+1);if(e.key==='ArrowLeft')openLB(idx-1)});
+</script>
+</body>
+</html>

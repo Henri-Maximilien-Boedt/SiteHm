@@ -1,0 +1,24 @@
+---
+import { switchLangPath, type Lang } from '../i18n/ui';
+interface Props { lang: Lang; back: string; backHref: string; center?: string; reloadBack?: boolean }
+const { lang, back, backHref, center, reloadBack = false } = Astro.props;
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const otherPath = switchLangPath(Astro.url, other);
+---
+<header class="subnav u-mono">
+  <a class="subnav__back" href={backHref} data-astro-reload={reloadBack ? '' : undefined}>← {back}</a>
+  {center && <span class="subnav__center">{center}</span>}
+  <span class="subnav__lang"><span class="on">{lang.toUpperCase()}</span> / <a href={otherPath}>{other.toUpperCase()}</a></span>
+</header>
+<style>
+  .subnav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-nav);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 2.2rem; font-size: var(--step--1); letter-spacing: 0.16em;
+    text-transform: uppercase; mix-blend-mode: difference;
+  }
+  .subnav a { text-decoration: none; color: var(--ink); }
+  .subnav__center { color: var(--ink); }
+  .subnav__lang .on { color: var(--ink); }
+  @media (max-width: 560px) { .subnav__center { display: none; } }
+</style>

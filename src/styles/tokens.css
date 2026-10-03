@@ -1,0 +1,48 @@
+/* ============================================================
+   SiteHm · Design System "Nocturne" · tokens figés
+   Dérivés de l'analyse des photos (noir dominant, un accent braise)
+   ============================================================ */
+:root {
+  /* — couleurs — */
+  --bg: #09090A;            /* near-black, base galerie */
+  --bg-2: #0e0e10;          /* panneau surélevé */
+  --ink: #F3EFE8;           /* encre chaude */
+  --ink-dim: #cfc9bf;       /* texte secondaire */
+  --muted: #8b8b94;         /* graphite, labels — AA sur fond noir (≥4.5:1) */
+  --line: rgba(243, 239, 232, 0.1);
+  --ember: #E8541B;         /* accent unique (flamme sur l'eau) */
+  --ember-soft: #ff6a33;
+  --ember-ink: #120a06;     /* texte sur fond braise */
+
+  /* — typographie — */
+  --font-display: "Clash Display", system-ui, sans-serif;
+  --font-body: "Satoshi", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* échelle fluide */
+  --step--1: clamp(0.8rem, 0.75rem + 0.2vw, 0.9rem);
+  --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.15rem);
+  --step-1: clamp(1.3rem, 1.1rem + 0.9vw, 2.1rem);
+  --step-2: clamp(2rem, 1.4rem + 2.6vw, 3.6rem);
+  --step-hero: clamp(2.7rem, 1rem + 11vw, 13rem);
+
+  /* — espacement / rythme — */
+  --gap: clamp(1rem, 0.6rem + 1.6vw, 1.6rem);
+  --section-y: clamp(5rem, 3rem + 8vw, 11rem);
+  --maxw: 1200px;
+
+  /* — motion — */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout: cubic-bezier(0.76, 0, 0.24, 1);
+  --dur-1: 0.4s;
+  --dur-2: 0.7s;
+  --dur-3: 1s;
+
+  /* — couches z — */
+  --z-wall: 2;
+  --z-hero: 20;
+  --z-nav: 40;
+  --z-cursor: 70;
+  --z-loader: 80;
+  --z-overlay: 90;
+}

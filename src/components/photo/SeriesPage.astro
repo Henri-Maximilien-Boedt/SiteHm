@@ -1,0 +1,233 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { useTranslations, type Lang } from '../../i18n/ui';
+import SubNav from '../SubNav.astro';
+
+interface Props { lang: Lang; slug: string }
+const { lang, slug } = Astro.props;
+const t = useTranslations(lang);
+
+const serie = await getEntry('series', slug);
+const allSeries = (await getCollection('series')).sort((a, b) => a.data.order - b.data.order);
+const idx = allSeries.findIndex((s) => s.id === slug);
+const next = allSeries[(idx + 1) % allSeries.length];
+
+const photos = (await getCollection('photos'))
+  .filter((p) => p.data.series === slug)
+  .sort((a, b) => a.data.order - b.data.order);
+
+// rythme narratif — ORIENTÉ : les grands cadres (plein écran / large) ne reçoivent
+// que des PAYSAGES (sujet visible) ; les PORTRAITS vont en colonnes/contenu.
+type Ph = (typeof photos)[number];
+type Block = { kind: 'full' | 'wide' | 'single' | 'pair'; items: Ph[]; side?: 'left' | 'right' };
+const isLand = (ph: Ph) => ph.data.src.width >= ph.data.src.height;
+const land = photos.filter(isLand);
+const port = photos.filter((ph) => !isLand(ph));
+
+// paysages : plein cadre, avec un 'large' tous les 3 pour la respiration
+const landBlocks: Block[] = land.map((ph, i) => ({ kind: i % 3 === 2 ? 'wide' : 'full', items: [ph] }));
+// portraits : par paires (colonnes hautes), reste en 'single' alterné
+const portBlocks: Block[] = [];
+let side: 'left' | 'right' = 'right';
+for (let i = 0; i < port.length; ) {
+  if (port.length - i >= 2) { portBlocks.push({ kind: 'pair', items: [port[i++], port[i++]] }); }
+  else { portBlocks.push({ kind: 'single', items: [port[i++]], side }); side = side === 'right' ? 'left' : 'right'; }
+}
+// entrelacement paysage / portrait pour le rythme
+const blocks: Block[] = [];
+let a = 0, b = 0;
+while (a < landBlocks.length || b < portBlocks.length) {
+  if (a < landBlocks.length) blocks.push(landBlocks[a++]);
+  if (b < portBlocks.length) blocks.push(portBlocks[b++]);
+}
+
+const exifLine = (e?: { focal?: string; aperture?: string; shutter?: string; iso?: number | string }) =>
+  e ? [e.focal, e.aperture, e.shutter, e.iso ? `ISO${e.iso}` : null].filter(Boolean).join(' · ') : '';
+---
+
+<SubNav lang={lang} back={t('series.all')} backHref={`/${lang}/photographie`} center={`${serie!.data.title[lang]} · ${String(idx + 1).padStart(2, '0')} / ${allSeries.length}`} />
+<div class="progress" id="prog" aria-hidden="true"></div>
+
+<main class="serie" data-speed-blur={serie!.data.speedBlur}>
+  <section class="hero">
+    {serie!.data.cover && (
+      <div class="hero__cover" data-par="0.14">
+        <Image src={serie!.data.cover} alt={serie!.data.title[lang]} widths={[1280, 1920, 2560]} sizes="100vw" loading="eager" fetchpriority="high" transition:name={`cover-${slug}`} />
+      </div>
+    )}
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="hero__wrap u-wrap">
+      <p class="u-eyebrow">{t('photo.title')} · {String(idx + 1).padStart(2, '0')}</p>
+      <h1 class="hero__title">{serie!.data.title[lang]}</h1>
+      <p class="hero__meta u-mono">
+        <span>{photos.length} {t('series.frames')}{serie!.data.year ? ` · ${serie!.data.year}` : ''}</span>
+        {serie!.data.location && <span>{serie!.data.location}</span>}
+      </p>
+    </div>
+  </section>
+
+  <p class="draft u-wrap u-mono">// {t('series.draft')}</p>
+
+  <div class="story">
+    {blocks.map((b) => (
+      b.kind === 'pair' ? (
+        <div class="row">
+          {b.items.map((ph) => (
+            <figure class="frame frame--half" data-par="0.12">
+              <Image class="frame__img" src={ph.data.src} alt={ph.data.title[lang]} widths={[760, 1200, 1600]} sizes="(max-width:720px) 100vw, 50vw" data-cursor={t('a11y.view')} />
+              <figcaption class="frame__cap u-mono">{ph.data.title[lang]} <span class="ex">{exifLine(ph.data.exif)}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+      ) : (
+        <figure class={`frame frame--${b.kind}${b.side ? ' is-' + b.side : ''}`} data-par="0.12">
+          <Image class="frame__img" src={b.items[0].data.src} alt={b.items[0].data.title[lang]} widths={b.kind === 'single' ? [900, 1400, 1900] : [1280, 1920, 2560]} sizes={b.kind === 'single' ? '(max-width:720px) 100vw, 68vw' : '100vw'} data-cursor={t('a11y.view')} />
+          <figcaption class="frame__cap u-mono">{b.items[0].data.title[lang]} <span class="ex">{exifLine(b.items[0].data.exif)}</span></figcaption>
+        </figure>
+      )
+    ))}
+  </div>
+
+  <nav class="next">
+    <span class="u-mono next__k">{t('series.next')}</span>
+    <a href={`/${lang}/photographie/${next.id}`} data-cursor={t('a11y.enter')}>{next.data.title[lang]} →</a>
+  </nav>
+</main>
+
+<!-- lightbox -->
+<div class="lb" id="lb" aria-hidden="true">
+  <button class="lb__close u-mono" id="lbClose">✕ {t('lb.close')}</button>
+  <button class="lb__nav lb__prev" id="lbPrev" aria-label="prev">‹</button>
+  <img id="lbImg" src="" alt="" />
+  <span class="lb__cap u-mono" id="lbCap"></span>
+  <button class="lb__nav lb__next" id="lbNext" aria-label="next">›</button>
+</div>
+
+<style>
+  .progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--ember); width: 0; z-index: 50; box-shadow: 0 0 12px var(--ember); }
+
+  .hero { position: relative; height: 100dvh; overflow: hidden; }
+  .hero__cover { position: absolute; inset: 0; }
+  .hero__cover :global(img) { width: 100%; height: 118%; object-fit: cover; filter: brightness(0.55) grayscale(0.3) contrast(1.1); }
+  .hero__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,9,10,.5), rgba(9,9,10,.2) 40%, rgba(9,9,10,.95)); }
+  .hero__wrap { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 7vh; }
+  .hero__badge { position: absolute; top: 14vh; right: 5vw; font-size: var(--step--1); color: var(--ember); }
+  .hero__title { font-family: var(--font-display); font-weight: 600; font-size: clamp(4rem, 18vw, 18rem); line-height: 0.8; letter-spacing: -0.04em; text-transform: uppercase; margin-top: 1rem; }
+  .hero__meta { display: flex; gap: 2.4rem; flex-wrap: wrap; margin-top: 1.6rem; color: var(--ink-dim); font-size: var(--step--1); }
+
+  .draft { color: var(--muted); font-size: var(--step--1); margin: 10vh auto 0; }
+
+  .story { padding: 6vh 0 2vh; }
+  .frame { position: relative; overflow: hidden; margin: 0 auto; opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease-out), transform 1s var(--ease-out); }
+  .frame.is-in { opacity: 1; transform: none; }
+  .frame__img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; transition: filter 0.5s; }
+  .frame__cap { position: absolute; left: 1.2rem; bottom: 1rem; z-index: 2; font-size: 0.64rem; color: var(--ink); text-shadow: 0 1px 12px #000; }
+  .frame__cap .ex { color: var(--muted); }
+  .frame--full { height: 118vh; width: 100%; }
+  .frame--full .frame__img { height: 128%; }
+  .frame--wide { width: 88vw; height: 82vh; margin-inline: auto; }
+  .frame--wide .frame__img { height: 114%; }
+  .frame--single { width: 68vw; height: 94vh; margin-block: 7vh; }
+  .frame--single.is-right { margin-right: 5vw; margin-left: auto; }
+  .frame--single.is-left { margin-left: 5vw; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4vw; width: 92vw; margin: 5vh auto; }
+  .frame--half { height: 86vh; }
+
+  .next { height: 64vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; border-top: 1px solid var(--line); margin-top: 8vh; }
+  .next__k { color: var(--muted); font-size: var(--step--1); }
+  .next a { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.4rem, 8vw, 7rem); color: var(--ink); text-decoration: none; letter-spacing: -0.03em; transition: color 0.4s; }
+  .next a:hover { color: var(--ember); }
+
+  .lb { position: fixed; inset: 0; z-index: var(--z-overlay); background: rgba(5,5,6,.96); display: none; align-items: center; justify-content: center; flex-direction: column; cursor: zoom-out; backdrop-filter: blur(6px); }
+  .lb.is-open { display: flex; }
+  .lb img { max-width: 90vw; max-height: 80vh; object-fit: contain; box-shadow: 0 30px 120px rgba(0,0,0,.7); }
+  .lb__cap { margin-top: 1.2rem; color: var(--ink-dim); font-size: var(--step--1); }
+  .lb__nav { position: absolute; top: 50%; transform: translateY(-50%); font-family: var(--font-display); font-size: 3rem; color: var(--ink); cursor: pointer; padding: 0 2.2vw; background: none; border: none; opacity: 0.6; }
+  .lb__nav:hover { opacity: 1; color: var(--ember); }
+  .lb__prev { left: 0; } .lb__next { right: 0; }
+  .lb__close { position: absolute; top: 1.6rem; right: 2rem; color: var(--ink-dim); font-size: var(--step--1); cursor: pointer; background: none; border: none; }
+
+  @media (max-width: 720px) {
+    .row { grid-template-columns: 1fr; } .frame--single { width: 88vw; height: 70vh; } .frame--full { height: 70vh; } .frame--full .frame__img { height: 108%; }
+    .frame--wide { width: 92vw; height: 56vh; } .frame--wide .frame__img { height: 108%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .frame { opacity: 1; transform: none; }
+    .hero__cover :global(img) { height: 100%; }
+  }
+</style>
+
+<script>
+  let _raf = 0;
+  let _io: IntersectionObserver | null = null;
+  let _ac: AbortController | null = null;
+  function cleanupSerie() {
+    if (_raf) cancelAnimationFrame(_raf);
+    _io?.disconnect();
+    _ac?.abort();
+    _raf = 0;
+  }
+
+  function initSerie() {
+    cleanupSerie();
+    const main = document.querySelector('.serie') as HTMLElement | null;
+    if (!main) return;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prog = document.getElementById('prog');
+    _ac = new AbortController();
+    const sig = _ac.signal;
+
+    _io = new IntersectionObserver(
+      (es) => es.forEach((e) => { if (e.isIntersecting) e.target.classList.add('is-in'); }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.frame').forEach((f) => _io!.observe(f));
+
+    const pars = Array.from(document.querySelectorAll<HTMLElement>('[data-par]'));
+    function frame() {
+      _raf = requestAnimationFrame(frame);
+      const h = document.documentElement.scrollHeight - innerHeight;
+      if (prog) prog.style.width = (scrollY / h) * 100 + '%';
+      if (reduce) return;
+      pars.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const mid = r.top + r.height / 2 - innerHeight / 2;
+        const sp = parseFloat(el.dataset.par || '0.1');
+        const img = (el.querySelector('img') as HTMLElement) || el;
+        img.style.transform = `translateY(${-mid * sp}px)`;
+      });
+    }
+    frame();
+
+    // lightbox
+    const imgs = Array.from(document.querySelectorAll<HTMLImageElement>('.frame__img'));
+    const lb = document.getElementById('lb')!;
+    const lbImg = document.getElementById('lbImg') as HTMLImageElement;
+    const lbCap = document.getElementById('lbCap')!;
+    let cur = 0;
+    const open = (n: number) => {
+      cur = (n + imgs.length) % imgs.length;
+      const im = imgs[cur];
+      lbImg.src = (im.currentSrc || im.src);
+      lbCap.textContent = im.closest('.frame')?.querySelector('.frame__cap')?.textContent?.trim() || im.alt;
+      lb.classList.add('is-open'); lb.setAttribute('aria-hidden', 'false');
+    };
+    const close = () => { lb.classList.remove('is-open'); lb.setAttribute('aria-hidden', 'true'); };
+    imgs.forEach((im, n) => im.addEventListener('click', () => open(n)));
+    document.getElementById('lbClose')!.addEventListener('click', close);
+    lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+    document.getElementById('lbPrev')!.addEventListener('click', (e) => { e.stopPropagation(); open(cur - 1); });
+    document.getElementById('lbNext')!.addEventListener('click', (e) => { e.stopPropagation(); open(cur + 1); });
+    addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowRight') open(cur + 1);
+      if (e.key === 'ArrowLeft') open(cur - 1);
+    }, { signal: sig });
+  }
+
+  initSerie();
+  document.addEventListener('astro:page-load', initSerie);
+  document.addEventListener('astro:before-swap', cleanupSerie);
+</script>

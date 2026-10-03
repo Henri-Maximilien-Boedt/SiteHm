@@ -1,0 +1,20 @@
+- generic [active] [ref=f20e1]:
+  - banner [ref=f20e2]:
+    - link "← Accueil" [ref=f20e3] [cursor=pointer]:
+      - /url: /fr
+    - generic [ref=f20e4]: Photographie
+    - generic [ref=f20e5]:
+      - text: FR /
+      - link "EN" [ref=f20e6] [cursor=pointer]:
+        - /url: /en/photographie
+  - main [ref=f20e7]:
+    - generic [ref=f20e8]:
+      - paragraph [ref=f20e9]: Les séries
+      - heading "Photographie" [level=1] [ref=f20e10]
+      - paragraph [ref=f20e11]: Quatre séries. La lumière dans le noir.
+    - list
+  - generic [ref=f20e14]:
+    - button [ref=f20e15]
+    - button [ref=f20e21]
+    - button [ref=f20e25]
+    - button [ref=f20e30]

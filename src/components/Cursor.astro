@@ -1,0 +1,70 @@
+---
+// Curseur custom contextuel. Desktop + pointeur fin uniquement.
+// N'importe quel élément avec [data-cursor="texte"] agrandit le curseur
+// et affiche le label au survol. Coupé en reduced-motion et au tactile.
+---
+<div class="cur" aria-hidden="true" transition:persist><span class="cur__lbl"></span></div>
+<div class="cur-dot" aria-hidden="true" transition:persist></div>
+
+<style>
+  .cur, .cur-dot {
+    position: fixed; top: 0; left: 0; z-index: var(--z-cursor);
+    pointer-events: none; border-radius: 999px; mix-blend-mode: difference;
+  }
+  .cur {
+    width: 44px; height: 44px; border: 1px solid rgba(255, 255, 255, 0.65);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, border-color 0.3s;
+    display: grid; place-items: center;
+  }
+  .cur-dot { width: 5px; height: 5px; background: #fff; transform: translate(-50%, -50%); }
+  .cur__lbl {
+    font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.14em;
+    text-transform: uppercase; opacity: 0; transition: opacity 0.2s; color: #fff; mix-blend-mode: normal;
+  }
+  .cur.is-big { width: 96px; height: 96px; border-color: var(--ember); }
+  .cur.is-big .cur__lbl { opacity: 1; }
+
+  /* tactile / grossier / reduced-motion : pas de curseur custom */
+  @media (hover: none), (pointer: coarse) { .cur, .cur-dot { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .cur, .cur-dot { display: none; } }
+</style>
+
+<script>
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (fine && !reduce) {
+    const ring = document.querySelector('.cur') as HTMLElement;
+    const dot = document.querySelector('.cur-dot') as HTMLElement;
+    const lbl = ring.querySelector('.cur__lbl') as HTMLElement;
+    let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy;
+
+    addEventListener('pointermove', (e) => {
+      tx = e.clientX; ty = e.clientY;
+      dot.style.transform = `translate(${tx}px, ${ty}px) translate(-50%, -50%)`;
+    }, { passive: true });
+
+    (function loop() {
+      cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2;
+      ring.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+      requestAnimationFrame(loop);
+    })();
+
+    // délégation : [data-cursor]
+    const bind = () => {
+      document.querySelectorAll<HTMLElement>('[data-cursor]').forEach((el) => {
+        if (el.dataset.cursorBound) return;
+        el.dataset.cursorBound = '1';
+        el.addEventListener('pointerenter', () => {
+          ring.classList.add('is-big'); lbl.textContent = el.dataset.cursor || '';
+        });
+        el.addEventListener('pointerleave', () => {
+          ring.classList.remove('is-big'); lbl.textContent = '';
+        });
+      });
+    };
+    bind();
+    // re-bind après navigation (View Transitions)
+    document.addEventListener('astro:page-load', bind);
+  }
+</script>

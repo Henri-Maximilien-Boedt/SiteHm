@@ -1,0 +1,99 @@
+- generic [active] [ref=f1e1]:
+  - banner [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - text: Henri-Max
+      - emphasis [ref=f1e4]: .
+      - text: B
+    - navigation [ref=f1e5]:
+      - generic [ref=f1e6]:
+        - button "FR" [ref=f1e7] [cursor=pointer]
+        - text: /
+        - button "EN" [ref=f1e8] [cursor=pointer]
+      - button "◦ son" [ref=f1e9] [cursor=pointer]
+  - generic [ref=f1e10]:
+    - generic [ref=f1e11]:
+      - generic [ref=f1e12]:
+        - paragraph [ref=f1e13]: Étudiant en info, photographe, développeur web. Cofondateur de L&M Computing. Je cadre la lumière, j'écris le code.
+        - generic [ref=f1e14]: Belgique / LuxembourgPortfolio — éd. 2026No. D · kinétique
+      - heading "Henri ‑Maximilien Boedt" [level=1] [ref=f1e15]:
+        - generic [ref=f1e16]:
+          - generic [ref=f1e17]: Henri
+          - generic [ref=f1e18]: ‑Maximilien
+        - generic [ref=f1e19]: Boedt
+      - generic [ref=f1e22]:
+        - generic [ref=f1e23]: Photographe
+        - generic [ref=f1e24]: ●
+        - generic [ref=f1e25]: Motorsport
+        - generic [ref=f1e26]: Paysage
+        - generic [ref=f1e27]: ●
+        - generic [ref=f1e28]: Séoul
+        - generic [ref=f1e29]: Développeur
+        - generic [ref=f1e30]: /
+        - generic [ref=f1e31]: HomeLab
+        - generic [ref=f1e32]: L&M Computing
+        - generic [ref=f1e33]: ●
+        - generic [ref=f1e34]: Photographe
+        - generic [ref=f1e35]: ●
+        - generic [ref=f1e36]: Motorsport
+        - generic [ref=f1e37]: Paysage
+        - generic [ref=f1e38]: ●
+        - generic [ref=f1e39]: Séoul
+        - generic [ref=f1e40]: Développeur
+        - generic [ref=f1e41]: /
+        - generic [ref=f1e42]: HomeLab
+        - generic [ref=f1e43]: L&M Computing
+        - generic [ref=f1e44]: ●
+    - generic [ref=f1e45]:
+      - generic [ref=f1e46]:
+        - generic [ref=f1e47]: Glissez →
+        - generic [ref=f1e48]: 24 cadres · 5 séries
+      - generic [ref=f1e49]:
+        - link "Busan · Le Petit Prince ■ Busan · Le Petit Prince" [ref=f1e50] [cursor=pointer]:
+          - /url: "#"
+          - img "Busan · Le Petit Prince" [ref=f1e51]
+          - generic [ref=f1e53]: ■ Busan · Le Petit Prince
+        - link "Séoul · marché ■ Séoul · marché" [ref=f1e54] [cursor=pointer]:
+          - /url: "#"
+          - img "Séoul · marché" [ref=f1e55]
+          - generic [ref=f1e57]: ■ Séoul · marché
+        - link "Séoul · verre ■ Séoul · verre" [ref=f1e58] [cursor=pointer]:
+          - /url: "#"
+          - img "Séoul · verre" [ref=f1e59]
+          - generic [ref=f1e61]: ■ Séoul · verre
+        - link "Lac · crépuscule ■ Lac · crépuscule" [ref=f1e62] [cursor=pointer]:
+          - /url: "#"
+          - img "Lac · crépuscule" [ref=f1e63]
+          - generic [ref=f1e65]: ■ Lac · crépuscule
+        - link "Sicile · Monte Cofano ■ Sicile · Monte Cofano" [ref=f1e66] [cursor=pointer]:
+          - /url: "#"
+          - img "Sicile · Monte Cofano" [ref=f1e67]
+          - generic [ref=f1e69]: ■ Sicile · Monte Cofano
+        - link "Busan · port ■ Busan · port" [ref=f1e70] [cursor=pointer]:
+          - /url: "#"
+          - img "Busan · port" [ref=f1e71]
+          - generic [ref=f1e73]: ■ Busan · port
+        - link "Alpes · alpenglow ■ Alpes · alpenglow" [ref=f1e74] [cursor=pointer]:
+          - /url: "#"
+          - img "Alpes · alpenglow" [ref=f1e75]
+          - generic [ref=f1e77]: ■ Alpes · alpenglow
+        - link "Séoul · rue ■ Séoul · rue" [ref=f1e78] [cursor=pointer]:
+          - /url: "#"
+          - img "Séoul · rue" [ref=f1e79]
+          - generic [ref=f1e81]: ■ Séoul · rue
+        - link "Séoul · DDP ■ Séoul · DDP" [ref=f1e82] [cursor=pointer]:
+          - /url: "#"
+          - img "Séoul · DDP" [ref=f1e83]
+          - generic [ref=f1e85]: ■ Séoul · DDP
+        - link "Haeundae · tours ■ Haeundae · tours" [ref=f1e86] [cursor=pointer]:
+          - /url: "#"
+          - img "Haeundae · tours" [ref=f1e87]
+          - generic [ref=f1e89]: ■ Haeundae · tours
+  - generic [ref=f1e90]:
+    - link "La série — 4 chapitres Photographie" [ref=f1e91] [cursor=pointer]:
+      - /url: "#"
+      - generic [ref=f1e92]: La série — 4 chapitres
+      - heading "Photographie" [level=2] [ref=f1e93]
+    - link "Le studio — CV & projets Travail" [ref=f1e95] [cursor=pointer]:
+      - /url: "#"
+      - generic [ref=f1e96]: Le studio — CV & projets
+      - heading "Travail" [level=2] [ref=f1e97]

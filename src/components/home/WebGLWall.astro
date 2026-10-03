@@ -1,0 +1,256 @@
+---
+// Mur de photos WebGL (OGL). Grille infinie draggable, distorsion liquide
+// au curseur, éveil au survol/drag, teinte braise. Fallback : si WebGL
+// indisponible ou prefers-reduced-motion, on garde le mur DOM (#hmWall).
+---
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  async function init() {
+    const canvas = document.getElementById('hmGL') as HTMLCanvasElement | null;
+    const stage = document.getElementById('hmStage');
+    const domWall = document.getElementById('hmWall');
+    if (!canvas || !stage || !domWall) return;
+    if (reduce) return; // fallback DOM
+
+    const srcs = Array.from(domWall.querySelectorAll('img')).map((i) => (i as HTMLImageElement).src);
+    if (!srcs.length) return;
+
+    // import dynamique : le parse d'OGL se fait en idle, hors de la fenêtre TBT critique
+    const { Renderer, Camera, Transform, Plane, Program, Mesh, Texture } = await import('ogl');
+
+    let renderer: Renderer;
+    try {
+      renderer = new Renderer({ canvas, dpr: Math.min(2, window.devicePixelRatio || 1), alpha: true, antialias: true });
+    } catch (e) {
+      return; // pas de WebGL → fallback DOM
+    }
+    const gl = renderer.gl;
+    gl.clearColor(0, 0, 0, 0);
+
+    const camera = new Camera(gl);
+    camera.position.z = 5;
+    const scene = new Transform();
+
+    const EMBER = [0.909, 0.329, 0.106];
+
+    const vertex = /* glsl */ `
+      attribute vec2 uv;
+      attribute vec3 position;
+      uniform mat4 modelViewMatrix;
+      uniform mat4 projectionMatrix;
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `;
+
+    const fragment = /* glsl */ `
+      precision highp float;
+      uniform sampler2D tMap;
+      uniform vec2 uImgSize;
+      uniform vec2 uPlaneSize;
+      uniform vec2 uTilePos;
+      uniform vec2 uMouse;
+      uniform float uTime;
+      uniform float uWake;
+      uniform float uVel;
+      uniform vec3 uEmber;
+      varying vec2 vUv;
+
+      vec2 cover(vec2 uv, vec2 plane, vec2 img) {
+        float planeA = plane.x / plane.y;
+        float imgA = img.x / img.y;
+        vec2 st = uv;
+        if (imgA > planeA) { st.x = (uv.x - 0.5) * (planeA / imgA) + 0.5; }
+        else { st.y = (uv.y - 0.5) * (imgA / planeA) + 0.5; }
+        return st;
+      }
+
+      void main() {
+        vec2 world = uTilePos + (vUv - 0.5) * uPlaneSize;
+        float d = distance(world, uMouse);
+        float infl = smoothstep(420.0, 0.0, d);
+
+        // distorsion liquide autour du curseur (+ stretch à la vélocité de drag)
+        vec2 dir = normalize(world - uMouse + vec2(0.0001));
+        float ripple = sin(d * 0.028 - uTime * 3.2) * infl * (7.0 + uVel * 0.5);
+        vec2 st = cover(vUv, uPlaneSize, uImgSize);
+        st += (ripple / uPlaneSize) * dir;
+
+        vec3 col = texture2D(tMap, clamp(st, 0.001, 0.999)).rgb;
+        float g = dot(col, vec3(0.299, 0.587, 0.114));
+
+        // repos : sombre + désaturé ; éveil + proximité curseur : couleur + lumière
+        float sat = clamp(0.28 + uWake * 0.5 + infl, 0.0, 1.0);
+        float bright = mix(0.30, 0.55, uWake) + infl * 0.95;
+        vec3 outc = mix(vec3(g), col, sat) * bright;
+
+        // bloom braise près du curseur
+        outc = mix(outc, outc * uEmber * 1.5 + uEmber * 0.12, infl * 0.5);
+
+        gl_FragColor = vec4(outc, 1.0);
+      }
+    `;
+
+    const program = new Program(gl, {
+      vertex,
+      fragment,
+      uniforms: {
+        tMap: { value: null },
+        uImgSize: { value: [1, 1] },
+        uPlaneSize: { value: [1, 1] },
+        uTilePos: { value: [0, 0] },
+        uMouse: { value: [0, 0] },
+        uTime: { value: 0 },
+        uWake: { value: 0 },
+        uVel: { value: 0 },
+        uEmber: { value: EMBER },
+      },
+    });
+
+    const geometry = new Plane(gl);
+
+    // textures : chargement + décodage async, upload étalé (1/frame) pour ne
+    // pas bloquer le thread principal (TBT). En attendant : placeholder sombre.
+    const placeholder = new Texture(gl);
+    type Entry = { tex: Texture; ready: boolean; img: HTMLImageElement | null; size: [number, number] };
+    const uploadQueue: Entry[] = [];
+    const entries: Entry[] = srcs.map((src) => {
+      const tex = new Texture(gl, { generateMipmaps: true, anisotropy: 4 });
+      const e: Entry = { tex, ready: false, img: null, size: [1, 1] };
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = src;
+      img.onload = () => {
+        const done = () => { e.img = img; e.size = [img.naturalWidth, img.naturalHeight]; uploadQueue.push(e); };
+        img.decode ? img.decode().then(done, done) : done();
+      };
+      return e;
+    });
+
+    type Tile = { mesh: Mesh; baseX: number; baseY: number };
+    let tiles: Tile[] = [];
+    let spanX = 0, spanY = 0, tileW = 0, tileH = 0;
+
+    function buildGrid() {
+      tiles.forEach((t) => t.mesh.setParent(null));
+      tiles = [];
+      const W = innerWidth, H = innerHeight;
+      tileW = Math.min(460, W * 0.32);
+      tileH = tileW * 0.66;
+      const gap = 18;
+      const unitX = tileW + gap, unitY = tileH + gap;
+      const cols = Math.ceil(W / unitX) + 3;
+      const rows = Math.ceil(H / unitY) + 3;
+      spanX = cols * unitX;
+      spanY = rows * unitY;
+      let n = 0;
+      for (let cx = 0; cx < cols; cx++) {
+        for (let cy = 0; cy < rows; cy++) {
+          const baseX = cx * unitX - spanX / 2 + unitX / 2;
+          const baseY = cy * unitY - spanY / 2 + unitY / 2;
+          const entry = entries[(cx + cy * 3 + n) % entries.length];
+          const mesh = new Mesh(gl, { geometry, program });
+          mesh.scale.set(tileW, tileH, 1);
+          mesh.setParent(scene);
+          mesh.onBeforeRender(() => {
+            program.uniforms.tMap.value = entry.ready ? entry.tex : placeholder;
+            program.uniforms.uImgSize.value = entry.ready ? entry.size : [1, 1];
+            program.uniforms.uPlaneSize.value = [tileW, tileH];
+            program.uniforms.uTilePos.value[0] = mesh.position.x;
+            program.uniforms.uTilePos.value[1] = mesh.position.y;
+          });
+          tiles.push({ mesh, baseX, baseY });
+          n++;
+        }
+      }
+    }
+
+    function resize() {
+      const W = innerWidth, H = innerHeight;
+      renderer.setSize(W, H);
+      camera.orthographic({ left: -W / 2, right: W / 2, bottom: -H / 2, top: H / 2, near: 0.1, far: 100 });
+      buildGrid();
+    }
+
+    // interaction
+    let offX = 0, offY = 0, velX = 0, velY = 0;
+    let down = false, lastX = 0, lastY = 0;
+    let mouseX = 0, mouseY = 0;
+    let wake = 0, wakeTarget = 0;
+    let wakeTimer: ReturnType<typeof setTimeout>;
+
+    const nudgeWake = () => { wakeTarget = 1; clearTimeout(wakeTimer); wakeTimer = setTimeout(() => (wakeTarget = 0), 1400); };
+
+    canvas.addEventListener('pointerdown', (e) => {
+      down = true; lastX = e.clientX; lastY = e.clientY; velX = velY = 0;
+      canvas.setPointerCapture(e.pointerId);
+    });
+    addEventListener('pointerup', () => { down = false; });
+    addEventListener('pointermove', (e) => {
+      mouseX = e.clientX - innerWidth / 2;
+      mouseY = innerHeight / 2 - e.clientY;
+      if (down) {
+        const dx = e.clientX - lastX, dy = e.clientY - lastY;
+        offX += dx; offY -= dy; velX = dx; velY = -dy;
+        lastX = e.clientX; lastY = e.clientY;
+      }
+      nudgeWake();
+    }, { passive: true });
+
+    const wrap = (v: number, span: number) => ((v + span / 2) % span + span) % span - span / 2;
+
+    let raf = 0;
+    const loop = (t: number) => {
+      raf = requestAnimationFrame(loop);
+      // upload d'une texture par frame (étalement du coût → TBT bas)
+      if (uploadQueue.length) {
+        const e = uploadQueue.shift()!;
+        e.tex.image = e.img as HTMLImageElement;
+        e.tex.needsUpdate = true;
+        e.tex.update();
+        e.ready = true;
+      }
+      if (!down) { offX += velX; offY += velY; velX *= 0.93; velY *= 0.93; }
+      // dérive lente au repos
+      offX += Math.sin(t * 0.00008) * 0.08;
+      offY += Math.cos(t * 0.00006) * 0.06;
+
+      wake += (wakeTarget - wake) * 0.05;
+      const speed = Math.min(60, Math.hypot(velX, velY));
+
+      for (const tl of tiles) {
+        tl.mesh.position.x = wrap(tl.baseX + offX, spanX);
+        tl.mesh.position.y = wrap(tl.baseY + offY, spanY);
+      }
+
+      program.uniforms.uTime.value = t * 0.001;
+      program.uniforms.uMouse.value = [mouseX, mouseY];
+      program.uniforms.uWake.value = wake;
+      program.uniforms.uVel.value = speed;
+
+      renderer.render({ scene, camera });
+    };
+
+    // go
+    resize();
+    stage.classList.add('is-gl'); // masque le mur DOM, montre le canvas
+    let rsT: ReturnType<typeof setTimeout>;
+    addEventListener('resize', () => { clearTimeout(rsT); rsT = setTimeout(resize, 150); });
+    raf = requestAnimationFrame(loop);
+
+    // pause hors écran (économie)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) cancelAnimationFrame(raf);
+      else raf = requestAnimationFrame(loop);
+    });
+  }
+
+  // init différée : on laisse le thread principal libre (perf/TBT), le mur
+  // est de toute façon derrière le loader pendant ~2 s.
+  const boot = () => ('requestIdleCallback' in window ? requestIdleCallback(init, { timeout: 1500 }) : setTimeout(init, 400));
+  if (document.readyState === 'complete') boot();
+  else addEventListener('load', boot, { once: true });
+</script>

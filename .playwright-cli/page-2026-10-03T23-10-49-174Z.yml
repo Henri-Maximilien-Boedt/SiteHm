@@ -1,0 +1,38 @@
+- generic [active] [ref=f146e1]:
+  - main [ref=f146e2]:
+    - generic [ref=f146e4]:
+      - generic [ref=f146e5]: 24%
+      - generic [ref=f146e6]: Henri-Maximilien BoedtNocturnela chambre noire
+    - generic [ref=f146e7]:
+      - link "HMB · studio" [ref=f146e8] [cursor=pointer]:
+        - /url: /fr
+      - navigation [ref=f146e9]:
+        - generic [ref=f146e10]: Luxembourg / Belgique
+        - generic [ref=f146e12]:
+          - text: FR /
+          - link "EN" [ref=f146e13] [cursor=pointer]:
+            - /url: /en
+        - button "Son ◦ off" [ref=f146e14] [cursor=pointer]
+    - region "Galerie" [ref=f146e15]:
+      - generic:
+        - paragraph: Photographe · Développeur web
+        - heading "Henri-Maximilien Boedt" [level=1]:
+          - generic: Henri-Maximilien
+          - generic: Boedt
+        - paragraph: Je photographie la lumière dans le noir. Je construis des sites qui font la même chose.
+      - navigation "Entrées" [ref=f146e17]:
+        - link "la série Photographie" [ref=f146e18] [cursor=pointer]:
+          - /url: /fr/photographie
+          - generic [ref=f146e19]: la série
+          - heading "Photographie" [level=2] [ref=f146e20]
+          - generic [aria-hidden] [ref=f146e21]: →
+        - link "le studio Travail" [ref=f146e23] [cursor=pointer]:
+          - /url: /fr/travail
+          - generic [ref=f146e24]: le studio
+          - heading "Travail" [level=2] [ref=f146e25]
+          - generic [aria-hidden] [ref=f146e26]: →
+  - generic [ref=f146e30]:
+    - button [ref=f146e31]
+    - button [ref=f146e37]
+    - button [ref=f146e41]
+    - button [ref=f146e46]

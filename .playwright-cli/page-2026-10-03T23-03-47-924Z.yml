@@ -1,0 +1,56 @@
+- generic [active] [ref=f16e1]:
+  - banner [ref=f16e2]:
+    - link "← Accueil" [ref=f16e3] [cursor=pointer]:
+      - /url: /fr
+    - generic [ref=f16e4]: Photographie
+    - generic [ref=f16e5]:
+      - text: FR /
+      - link "EN" [ref=f16e6] [cursor=pointer]:
+        - /url: /en/photographie
+  - main [ref=f16e7]:
+    - generic [ref=f16e8]:
+      - paragraph [ref=f16e9]: Les séries
+      - heading "Photographie" [level=1] [ref=f16e10]
+      - paragraph [ref=f16e11]: Quatre séries. La lumière dans le noir.
+    - list [ref=f16e12]:
+      - listitem [ref=f16e13]:
+        - link "Motorsport 01 Motorsport 3 cadres · Spa · Paul Ricard" [ref=f16e14] [cursor=pointer]:
+          - /url: /fr/photographie/motorsport
+          - img "Motorsport" [ref=f16e16]
+          - generic [ref=f16e17]:
+            - generic [ref=f16e18]: "01"
+            - generic [ref=f16e19]: Motorsport
+            - generic [ref=f16e20]: 3 cadres · Spa · Paul Ricard
+            - generic [aria-hidden] [ref=f16e21]: →
+      - listitem [ref=f16e22]:
+        - link "Séoul 02 Séoul 22 cadres · Corée du Sud" [ref=f16e23] [cursor=pointer]:
+          - /url: /fr/photographie/seoul
+          - img "Séoul" [ref=f16e25]
+          - generic [ref=f16e26]:
+            - generic [ref=f16e27]: "02"
+            - generic [ref=f16e28]: Séoul
+            - generic [ref=f16e29]: 22 cadres · Corée du Sud
+            - generic [aria-hidden] [ref=f16e30]: →
+      - listitem [ref=f16e31]:
+        - link "Paysage 03 Paysage 13 cadres · Alpes · Sicile" [ref=f16e32] [cursor=pointer]:
+          - /url: /fr/photographie/paysage
+          - img "Paysage" [ref=f16e34]
+          - generic [ref=f16e35]:
+            - generic [ref=f16e36]: "03"
+            - generic [ref=f16e37]: Paysage
+            - generic [ref=f16e38]: 13 cadres · Alpes · Sicile
+            - generic [aria-hidden] [ref=f16e39]: →
+      - listitem [ref=f16e40]:
+        - link "Nuit 04 Nuit 7 cadres · Japon" [ref=f16e41] [cursor=pointer]:
+          - /url: /fr/photographie/nuit
+          - img "Nuit" [ref=f16e43]
+          - generic [ref=f16e44]:
+            - generic [ref=f16e45]: "04"
+            - generic [ref=f16e46]: Nuit
+            - generic [ref=f16e47]: 7 cadres · Japon
+            - generic [aria-hidden] [ref=f16e48]: →
+  - generic [ref=f16e51]:
+    - button [ref=f16e52]
+    - button [ref=f16e58]
+    - button [ref=f16e62]
+    - button [ref=f16e67]

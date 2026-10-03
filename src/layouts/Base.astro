@@ -1,0 +1,69 @@
+---
+import '../styles/global.css';
+import Cursor from '../components/Cursor.astro';
+import { getLangFromUrl } from '../i18n/ui';
+import { ClientRouter } from 'astro:transitions';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+// preload des fonts above-the-fold (LCP) — lu depuis le CSS self-hosté
+const fontsCss = readFileSync(join(process.cwd(), 'src/styles/fonts.css'), 'utf8');
+function faceUrl(family: string, weight: number): string | null {
+  for (const block of fontsCss.split('@font-face').slice(1)) {
+    if (block.includes(family) && new RegExp('font-weight:\\s*' + weight + '\\b').test(block)) {
+      const m = block.match(/\/fonts\/[^)"']+\.woff2/);
+      if (m) return m[0];
+    }
+  }
+  return null;
+}
+const preloadFonts = [faceUrl('Clash Display', 600), faceUrl('Satoshi', 400)].filter(Boolean) as string[];
+
+interface Props {
+  title: string;
+  description?: string;
+  /** masque le curseur custom (ex: pages très textuelles) */
+  cursor?: boolean;
+}
+const { title, description = 'Henri-Maximilien Boedt — photographe & développeur web.', cursor = true } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#09090A" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Fonts self-hostées (woff2) via src/styles/fonts.css -->
+    {preloadFonts.map((href) => (
+      <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />
+    ))}
+    <ClientRouter />
+  </head>
+  <body>
+    <div class="u-grain" aria-hidden="true" transition:persist></div>
+    {cursor && <Cursor />}
+    <slot />
+
+    <script>
+      // Smooth scroll (Lenis), respect de prefers-reduced-motion, compatible View Transitions
+      import Lenis from 'lenis';
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let lenis: Lenis | null = null;
+      if (!reduce) {
+        lenis = new Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1 });
+        const raf = (t: number) => { lenis!.raf(t); requestAnimationFrame(raf); };
+        requestAnimationFrame(raf);
+        // après une transition de page : repartir en haut + recalculer la hauteur
+        document.addEventListener('astro:after-swap', () => {
+          lenis!.scrollTo(0, { immediate: true });
+          requestAnimationFrame(() => lenis!.resize());
+        });
+      }
+    </script>
+  </body>
+</html>

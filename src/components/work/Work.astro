@@ -1,0 +1,267 @@
+---
+import { useTranslations, type Lang } from '../../i18n/ui';
+import SubNav from '../SubNav.astro';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const fr = lang === 'fr';
+
+// — contenu BROUILLON (à remplacer par content/cv.*.md) —
+const lede = fr
+  ? 'Étudiant en informatique, photographe et développeur web. Cofondateur de L&M Computing. Je conçois et je construis, du cadrage au déploiement.'
+  : 'Computer-science student, photographer and web developer. Co-founder of L&M Computing. I design and build, from framing to deploy.';
+
+const experience = [
+  { yr: fr ? '2023 · présent' : '2023 · now', ro: fr ? 'Cofondateur · L&M Computing' : 'Co-founder · L&M Computing', pl: fr ? 'Studio web & systèmes' : 'Web & systems studio', de: fr ? 'Conception, développement et déploiement de sites et d’infrastructures.' : 'Design, development and deployment of sites and infrastructure.' },
+  { yr: fr ? 'en cours' : 'ongoing', ro: fr ? 'Photographe indépendant' : 'Freelance photographer', pl: fr ? 'Motorsport · paysage · urbain' : 'Motorsport · landscape · urban', de: fr ? 'Reportage et séries d’auteur.' : 'Reportage and personal series.' },
+  { yr: fr ? 'à compléter' : 'tbc', ro: 'HomeLab', pl: fr ? 'Systèmes & réseau' : 'Systems & network', de: fr ? 'Services auto-hébergés, apprentissage infra.' : 'Self-hosted services, infra learning.' },
+];
+const formation = [
+  { yr: fr ? 'en cours' : 'ongoing', ro: fr ? 'Études en informatique' : 'Computer science studies', pl: fr ? '(établissement à confirmer)' : '(school tbc)', de: fr ? 'Développement logiciel & web, systèmes.' : 'Software & web dev, systems.' },
+  { yr: fr ? 'à compléter' : 'tbc', ro: fr ? 'Secondaire' : 'Secondary', pl: '(tbc)', de: '' },
+];
+const projects = [
+  { big: true, k: fr ? 'Entreprise · cofondateur' : 'Company · co-founder', h: 'L&M Computing', p: fr ? 'Studio web & systèmes. Sites sur mesure, performants et accessibles, du design au déploiement.' : 'Web & systems studio. Bespoke, fast, accessible sites, from design to deploy.', go: 'lm-computing.com →', href: 'https://lm-computing.com', img: 'DSC_2706' },
+  { k: 'Self-hosting', h: 'HomeLab', p: fr ? 'Infrastructure personnelle, services auto-hébergés.' : 'Personal infrastructure, self-hosted services.', go: fr ? 'étude de cas →' : 'case study →', href: '#', img: 'DSC_7175' },
+  { k: fr ? 'Pratique d’auteur' : 'Personal practice', h: 'Photographie', p: fr ? 'Quatre séries. La lumière dans le noir.' : 'Four series. Light in the dark.', go: fr ? 'voir les séries →' : 'see the series →', href: `/${lang}/photographie`, img: 'DSC_6857' },
+];
+const skills = [
+  { h: fr ? 'Développement' : 'Development', items: [['TypeScript / JS', fr ? 'avancé' : 'advanced'], ['Astro · composants', fr ? 'courant' : 'fluent'], ['HTML / CSS / motion', fr ? 'avancé' : 'advanced'], ['Git · CI / déploiement', fr ? 'courant' : 'fluent']] },
+  { h: fr ? 'Systèmes' : 'Systems', items: [['Linux · self-hosting', fr ? 'courant' : 'fluent'], ['Docker · réseau', fr ? 'notions +' : 'basics +'], ['Cloudflare · DNS', fr ? 'courant' : 'fluent']] },
+  { h: 'Photographie', items: [['Nikon · prise de vue', fr ? 'avancé' : 'advanced'], ['Lightroom · étalonnage', fr ? 'avancé' : 'advanced'], [fr ? 'Pose longue · vitesse' : 'Long exposure · speed', fr ? 'avancé' : 'advanced']] },
+];
+const lands = [
+  { lbl: fr ? 'Expédition 01' : 'Expedition 01', h: 'Assembly', coord: fr ? 'coordonnées · à confirmer' : 'coordinates · tbc', p: fr ? 'Carnet d’explorateur. (contexte définitif à venir, ne pas inventer)' : 'Explorer’s log. (final context coming, do not invent)', tags: [fr ? 'demoscene ?' : 'demoscene?', fr ? 'badge obtenu' : 'badge earned'] },
+  { lbl: fr ? 'Expédition 02' : 'Expedition 02', h: 'Oz', coord: fr ? 'coordonnées · à confirmer' : 'coordinates · tbc', p: fr ? 'Carnet d’explorateur. (contexte définitif à venir, ne pas inventer)' : 'Explorer’s log. (final context coming, do not invent)', tags: ['terra incognita', fr ? 'badge obtenu' : 'badge earned'] },
+];
+const draftNote = fr ? '// bio & dates définitives à venir depuis content/cv.fr.md, contenu ci-dessous = structure' : '// final bio & dates coming from content/cv.en.md, content below = structure';
+---
+
+<SubNav lang={lang} back={t('work.back')} backHref={`/${lang}`} center="Travail / CV" reloadBack />
+
+<main class="work">
+  <div class="u-wrap">
+    <section class="top">
+      <p class="u-eyebrow">{fr ? 'Le studio · CV' : 'The studio · CV'}</p>
+      <h1 class="top__title">Tra<span class="o">vail</span></h1>
+      <p class="top__lede" set:html={lede.replace('L&M Computing', '<a href="https://lm-computing.com" target="_blank" rel="noopener">L&amp;M Computing</a>')}></p>
+      <div class="top__row">
+        <a class="btn btn--solid" href="#" id="cvBtn" data-cursor={t('a11y.view')}>↓ {fr ? 'Télécharger le CV (PDF)' : 'Download CV (PDF)'}</a>
+        <a class="btn" href="#terminal" data-cursor={t('a11y.enter')}>{fr ? 'Ouvrir le terminal' : 'Open the terminal'} ▌</a>
+      </div>
+      <p class="note u-mono">{draftNote}</p>
+    </section>
+
+    <section class="reveal">
+      <p class="u-eyebrow">{fr ? 'Parcours' : 'Path'}</p>
+      <h2 class="sec">{fr ? 'Expérience & formation' : 'Experience & education'}</h2>
+      <div class="tl">
+        <div>
+          <h3 class="tl__h u-mono">{fr ? 'Expérience' : 'Experience'}</h3>
+          {experience.map((it) => (
+            <div class="item"><div class="item__yr u-mono">{it.yr}</div><div class="item__ro">{it.ro}</div><div class="item__pl">{it.pl}</div>{it.de && <div class="item__de">{it.de}</div>}</div>
+          ))}
+        </div>
+        <div>
+          <h3 class="tl__h u-mono">{fr ? 'Formation' : 'Education'}</h3>
+          {formation.map((it) => (
+            <div class="item"><div class="item__yr u-mono">{it.yr}</div><div class="item__ro">{it.ro}</div><div class="item__pl">{it.pl}</div>{it.de && <div class="item__de">{it.de}</div>}</div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <p class="u-eyebrow">{fr ? 'Sélection' : 'Selection'}</p>
+      <h2 class="sec">{fr ? 'Projets' : 'Projects'}</h2>
+      <div class="projs">
+        {projects.map((pr) => (
+          <a class={`card${pr.big ? ' card--big' : ''}`} href={pr.href} target={pr.href.startsWith('http') ? '_blank' : undefined} rel="noopener" data-cursor={t('a11y.enter')}>
+            <span class="card__bg"><img src={`/photos/${pr.img}.jpg`} alt="" loading="lazy" /></span>
+            <span class="card__k u-mono">{pr.k}</span>
+            <h3 class="card__h">{pr.h}</h3>
+            <p class="card__p">{pr.p}</p>
+            <span class="card__go u-mono">{pr.go}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="reveal">
+      <p class="u-eyebrow">{fr ? 'Savoir-faire' : 'Craft'}</p>
+      <h2 class="sec">{fr ? 'Compétences' : 'Skills'}</h2>
+      <div class="skills">
+        {skills.map((col) => (
+          <div class="skills__col">
+            <h3 class="u-mono">{col.h}</h3>
+            <ul>{col.items.map(([n, lvl]) => (<li><span class="skills__n">{n}</span><span class="skills__lvl u-mono">{lvl}</span></li>))}</ul>
+          </div>
+        ))}
+      </div>
+      <p class="note u-mono">{fr ? '// niveaux à confirmer, volontairement sans barres de %' : '// levels tbc, deliberately no % bars'}</p>
+    </section>
+
+    <section class="reveal">
+      <p class="u-eyebrow">{fr ? 'Hors des sentiers' : 'Off the beaten path'}</p>
+      <h2 class="sec">{fr ? 'Terres explorées' : 'Lands explored'}</h2>
+      <div class="lands">
+        {lands.map((l) => (
+          <div class="pass">
+            <div class="pass__stamp u-mono">{fr ? 'entrée' : 'entry'}<br />visa ✦</div>
+            <div class="pass__lbl u-mono">{l.lbl}</div>
+            <h3 class="pass__h">{l.h}</h3>
+            <div class="pass__coord u-mono">{l.coord}</div>
+            <p class="pass__p">{l.p}</p>
+            <div class="pass__tags">{l.tags.map((tg) => (<span class="pass__tag u-mono">{tg}</span>))}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="reveal" id="terminal">
+      <p class="u-eyebrow">{fr ? 'Clin d’œil dev' : 'Dev wink'}</p>
+      <h2 class="sec">./hmb --interactive</h2>
+      <div class="term">
+        <div class="term__bar"><i class="r"></i><i></i><i></i><span class="u-mono">hmb@studio — bash</span></div>
+        <div class="term__body" id="tbody">
+          <div class="l"><span class="mut">{fr ? 'Dernière connexion. Tapez' : 'Last login. Type'}</span> <span class="em">help</span> <span class="mut">{fr ? 'pour les commandes.' : 'for commands.'}</span></div>
+        </div>
+        <div class="term__input"><span class="ps">hmb@studio:~$</span><input id="tin" autocomplete="off" spellcheck="false" aria-label="terminal" /></div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="foot">
+    <p class="foot__big">{fr ? 'Besoin d’un site comme celui-ci ?' : 'Need a site like this one?'}<br /><a href="https://lm-computing.com" target="_blank" rel="noopener" data-cursor={t('a11y.enter')}>{fr ? 'Parlons-en chez L&M Computing →' : 'Let’s talk at L&M Computing →'}</a></p>
+    <a class="foot__mail u-mono" href="mailto:hmboedt@gmail.com">hmboedt@gmail.com</a>
+    <p class="foot__meta u-mono">Henri-Maximilien Boedt · Belgique / Luxembourg · Nocturne éd. 2026</p>
+  </footer>
+</main>
+
+<style>
+  .work { padding-top: 0; }
+  .top { min-height: 92vh; display: flex; flex-direction: column; justify-content: center; padding: 14vh 0 6vh; }
+  .top__title { font-family: var(--font-display); font-weight: 600; font-size: clamp(3rem, 12vw, 11rem); line-height: 0.82; letter-spacing: -0.04em; text-transform: uppercase; margin: 0.4rem 0 0; }
+  .top__title .o { color: transparent; -webkit-text-stroke: 1.3px rgba(243, 239, 232, 0.5); }
+  .top__lede { max-width: 52ch; margin-top: 2rem; font-size: var(--step-1); line-height: 1.5; color: var(--ink-dim); }
+  .top__lede :global(a) { color: var(--ember); text-decoration: none; border-bottom: 1px solid rgba(232, 84, 27, 0.4); }
+  .top__row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.6rem; }
+  .note { color: var(--muted); font-size: var(--step--1); margin-top: 1.4rem; letter-spacing: 0.04em; }
+
+  .btn { display: inline-flex; align-items: center; gap: 0.7rem; font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.95rem 1.5rem; border: 1px solid var(--line); color: var(--ink); text-decoration: none; border-radius: 2px; background: var(--bg-2); transition: 0.35s; }
+  .btn:hover { border-color: var(--ember); color: var(--ember); transform: translateY(-2px); }
+  .btn--solid { background: var(--ember); color: var(--ember-ink); border-color: var(--ember); font-weight: 700; }
+  .btn--solid:hover { color: var(--ember-ink); filter: brightness(1.08); }
+
+  section { padding: var(--section-y) 0; border-top: 1px solid var(--line); }
+  .sec { font-family: var(--font-display); font-weight: 500; font-size: var(--step-2); letter-spacing: -0.02em; margin: 0.6rem 0 2.5rem; line-height: 1; }
+
+  .tl { display: grid; grid-template-columns: 1fr 1fr; gap: 5vw; }
+  .tl__h { font-size: 0.74rem; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 1.6rem; }
+  .item { position: relative; padding: 0 0 2rem 1.6rem; border-left: 1px solid var(--line); }
+  .item::before { content: ""; position: absolute; left: -5px; top: 0.35rem; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 1px solid var(--muted); transition: 0.3s; }
+  .item:hover::before { background: var(--ember); border-color: var(--ember); box-shadow: 0 0 12px var(--ember); }
+  .item__yr { font-size: 0.7rem; color: var(--ember); }
+  .item__ro { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; margin: 0.25rem 0; }
+  .item__pl { font-size: 0.95rem; color: #b7b2a8; }
+  .item__de { font-size: 0.92rem; color: var(--muted); margin-top: 0.4rem; max-width: 42ch; }
+
+  .projs { display: grid; grid-template-columns: 1.3fr 1fr; grid-auto-rows: minmax(0, 1fr); gap: 1.2vw; }
+  .card { position: relative; overflow: hidden; background: var(--bg-2); border: 1px solid var(--line); min-height: 300px; padding: 1.8rem; display: flex; flex-direction: column; justify-content: flex-end; text-decoration: none; color: var(--ink); transition: 0.4s; }
+  .card--big { grid-row: span 2; }
+  .card__bg { position: absolute; inset: 0; z-index: 0; opacity: 0.18; transition: opacity 0.5s, transform 0.8s; }
+  .card__bg img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.3); }
+  .card:hover { border-color: rgba(232, 84, 27, 0.5); transform: translateY(-3px); }
+  .card:hover .card__bg { opacity: 0.4; transform: scale(1.05); }
+  .card__k { position: relative; font-size: 0.66rem; letter-spacing: 0.16em; color: var(--muted); z-index: 1; }
+  .card__h { position: relative; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 2.6vw, 2.4rem); z-index: 1; margin: 0.3rem 0; }
+  .card__p { position: relative; font-size: 0.95rem; color: #b7b2a8; z-index: 1; max-width: 40ch; }
+  .card__go { position: relative; z-index: 1; margin-top: 1rem; font-size: 0.72rem; color: var(--ember); opacity: 0; transform: translateX(-8px); transition: 0.4s; }
+  .card:hover .card__go { opacity: 1; transform: none; }
+
+  .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4vw; }
+  .skills__col h3 { font-size: 0.74rem; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--line); }
+  .skills__col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .skills__col li { font-size: 1.05rem; color: var(--ink-dim); display: flex; justify-content: space-between; align-items: baseline; }
+  .skills__lvl { font-size: 0.66rem; color: var(--muted); }
+
+  .lands { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4vw; }
+  .pass { position: relative; border: 1px solid var(--line); background: repeating-linear-gradient(135deg, rgba(243, 239, 232, 0.02) 0 12px, transparent 12px 24px), var(--bg-2); padding: 2rem; overflow: hidden; }
+  .pass__stamp { position: absolute; top: 1.2rem; right: 1.2rem; width: 84px; height: 84px; border: 2px solid rgba(232, 84, 27, 0.5); border-radius: 50%; display: grid; place-items: center; font-size: 0.54rem; color: var(--ember); text-align: center; transform: rotate(-12deg); opacity: 0.8; }
+  .pass__lbl { font-size: 0.66rem; letter-spacing: 0.18em; color: var(--muted); }
+  .pass__h { font-family: var(--font-display); font-weight: 600; font-size: 2.2rem; margin: 0.3rem 0 0.2rem; }
+  .pass__coord { font-size: 0.74rem; color: var(--ember); }
+  .pass__p { font-size: 0.95rem; color: #b7b2a8; margin-top: 0.9rem; max-width: 40ch; }
+  .pass__tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.1rem; }
+  .pass__tag { font-size: 0.62rem; color: var(--ink-dim); border: 1px solid var(--line); padding: 0.3rem 0.6rem; border-radius: 999px; }
+
+  .term { background: #060607; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; max-width: 760px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); }
+  .term__bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1rem; border-bottom: 1px solid var(--line); background: #0b0b0d; }
+  .term__bar i { width: 11px; height: 11px; border-radius: 50%; background: #2a2a2e; display: inline-block; }
+  .term__bar i.r { background: var(--ember); }
+  .term__bar span { margin-left: 0.6rem; font-size: 0.68rem; color: var(--muted); }
+  .term__body { padding: 1.2rem; font-family: var(--font-mono); font-size: 0.84rem; line-height: 1.7; height: 320px; overflow-y: auto; }
+  .term__body .l { white-space: pre-wrap; word-break: break-word; }
+  .term .em { color: var(--ember); } .term .mut { color: var(--muted); } .term .ok { color: #8fcf8a; }
+  .term__input { display: flex; gap: 0.5rem; align-items: center; padding: 0 1.2rem 1.1rem; font-family: var(--font-mono); font-size: 0.84rem; }
+  .term__input .ps { color: var(--ember); }
+  .term__input input { background: none; border: none; color: var(--ink); font: inherit; flex: 1; outline: none; caret-color: var(--ember); }
+
+  .foot { border-top: 1px solid var(--line); padding: 10vh 2.2rem 6vh; text-align: center; }
+  .foot__big { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.8rem, 5vw, 4rem); letter-spacing: -0.02em; line-height: 1.05; }
+  .foot__big a { color: var(--ember); text-decoration: none; }
+  .foot__mail { display: inline-block; margin-top: 1.6rem; font-size: 0.8rem; color: var(--ink-dim); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .foot__meta { margin-top: 3rem; font-size: 0.66rem; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+  .reveal.is-in { opacity: 1; transform: none; }
+
+  @media (max-width: 820px) { .tl, .projs, .skills, .lands { grid-template-columns: 1fr; } .card--big { grid-row: auto; } }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+</style>
+
+<script>
+  let _io: IntersectionObserver | null = null;
+  function initWork() {
+    _io?.disconnect();
+    if (!document.querySelector('.work')) return;
+    _io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) e.target.classList.add('is-in'); }), { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach((s) => _io!.observe(s));
+
+    const cvBtn = document.getElementById('cvBtn');
+    cvBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      const b = e.currentTarget as HTMLElement;
+      const txt = b.textContent;
+      b.textContent = '↓ cv-hmb.pdf (à générer)';
+      setTimeout(() => { b.textContent = txt; }, 1800);
+    });
+
+    const fr = document.documentElement.lang === 'fr';
+    const body = document.getElementById('tbody');
+    const input = document.getElementById('tin') as HTMLInputElement | null;
+    if (!body || !input) return;
+    const print = (html: string, cls = '') => { const d = document.createElement('div'); d.className = 'l ' + cls; d.innerHTML = html; body.appendChild(d); body.scrollTop = body.scrollHeight; };
+    const cmds: Record<string, () => void> = {
+      help: () => print('→ <span class="em">about</span>  <span class="em">skills</span>  <span class="em">projects</span>  <span class="em">photo</span>  <span class="em">contact</span>  <span class="em">cv</span>  <span class="em">clear</span>'),
+      about: () => print(fr ? 'Henri-Maximilien Boedt — étudiant en informatique, photographe, développeur web.\nCofondateur de L&amp;M Computing. Belgique / Luxembourg.' : 'Henri-Maximilien Boedt — CS student, photographer, web developer.\nCo-founder of L&amp;M Computing. Belgium / Luxembourg.'),
+      skills: () => print('dev      : TypeScript, Astro, CSS/motion, Git\nsys      : Linux, self-hosting, Cloudflare\nphoto    : Nikon, ' + (fr ? 'étalonnage, pose longue' : 'grading, long exposure')),
+      projects: () => print('L&amp;M Computing  <span class="mut">→ lm-computing.com</span>\nHomeLab\nPhotographie   <span class="mut">→ /' + (fr ? 'fr' : 'en') + '/photographie</span>'),
+      photo: () => print('<span class="em">Motorsport</span> · Paysage · ' + (fr ? 'Séoul' : 'Seoul') + ' · ' + (fr ? 'Nuit' : 'Night')),
+      contact: () => print('email : <span class="em">hmboedt@gmail.com</span>'),
+      cv: () => print((fr ? 'génération du PDF... ' : 'generating PDF... ') + '<span class="ok">ok</span> <span class="mut">(' + (fr ? 'à brancher' : 'to wire') + ')</span>'),
+      clear: () => { body.innerHTML = ''; },
+    };
+    input.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      const v = input.value.trim(); input.value = ''; if (!v) return;
+      print('<span class="em">hmb@studio:~$</span> ' + v.replace(/</g, '&lt;'));
+      const fn = cmds[v.toLowerCase()];
+      if (fn) fn(); else print((fr ? 'commande inconnue : ' : 'unknown command: ') + v.replace(/</g, '&lt;') + ' <span class="mut">(help)</span>', 'mut');
+    });
+    document.querySelector('.term')?.addEventListener('click', () => input.focus());
+  }
+  initWork();
+  document.addEventListener('astro:page-load', initWork);
+  document.addEventListener('astro:before-swap', () => _io?.disconnect());
+</script>

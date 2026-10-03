@@ -1,0 +1,91 @@
+- generic [active] [ref=e1]:
+  - generic: drag
+  - banner [ref=e2]:
+    - generic [ref=e3]: HMB·studio
+    - navigation [ref=e4]:
+      - generic [ref=e5]: Luxembourg / Belgique
+      - generic [ref=e7]:
+        - button "FR" [ref=e8] [cursor=pointer]
+        - text: /
+        - button "EN" [ref=e9] [cursor=pointer]
+      - button "Son ◦ off" [ref=e10] [cursor=pointer]
+  - main [ref=e11]:
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - img "Séoul · DDP" [ref=e14]
+        - text: Séoul · DDP
+      - generic [ref=e15]:
+        - img "Ukai · pêche au feu" [ref=e16]
+        - text: Ukai · pêche au feu
+      - generic [ref=e17]:
+        - img "Séoul · DDP" [ref=e18]
+        - text: Séoul · DDP
+      - generic [ref=e19]:
+        - img "Osaka · nuit" [ref=e20]
+        - text: Osaka · nuit
+      - generic [ref=e21]:
+        - img "Etna · ascension" [ref=e22]
+        - text: Etna · ascension
+      - generic [ref=e23]:
+        - img "Séoul · DDP" [ref=e24]
+        - text: Séoul · DDP
+      - generic [ref=e25]:
+        - img "Feu sur l'eau" [ref=e26]
+        - text: Feu sur l'eau
+      - generic [ref=e27]:
+        - img "Séoul · DDP" [ref=e28]
+        - text: Séoul · DDP
+      - generic [ref=e29]:
+        - img "Osaka · heure bleue" [ref=e30]
+        - text: Osaka · heure bleue
+      - generic [ref=e31]:
+        - img "Séoul · DDP" [ref=e32]
+        - text: Séoul · DDP
+      - generic [ref=e33]:
+        - img "Spa · motorsport" [ref=e34]
+        - text: Spa · motorsport
+      - generic [ref=e35]:
+        - img "Lac · crépuscule" [ref=e36]
+        - text: Lac · crépuscule
+      - generic [ref=e37]:
+        - img "Séoul · DDP" [ref=e38]
+        - text: Séoul · DDP
+      - generic [ref=e39]:
+        - img "Pleine lune" [ref=e40]
+        - text: Pleine lune
+      - generic [ref=e41]:
+        - img "Osaka · canal" [ref=e42]
+        - text: Osaka · canal
+      - generic [ref=e43]:
+        - img "Pit lane" [ref=e44]
+        - text: Pit lane
+      - generic [ref=e45]:
+        - img "Séoul · rue" [ref=e46]
+        - text: Séoul · rue
+      - generic [ref=e47]:
+        - img "Alpes · alpenglow" [ref=e48]
+        - text: Alpes · alpenglow
+      - generic [ref=e49]:
+        - img "Busan · Petit Prince" [ref=e50]
+        - text: Busan · Petit Prince
+      - generic [ref=e51]:
+        - img "Séoul · Namsan" [ref=e52]
+        - text: Séoul · Namsan
+    - generic:
+      - generic: Photographe · Développeur web
+      - heading "Henri-Maximilien Boedt" [level=1]:
+        - generic: Henri-Maximilien
+        - generic: Boedt
+      - paragraph: Je photographie la lumière dans le noir. Je construis des sites qui font la même chose.
+    - generic [ref=e53]: glissez le mur — cliquez une porte
+    - generic [ref=e54]:
+      - link "01 / la série Photographie →" [ref=e55] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e56]: 01 / la série
+        - heading "Photographie" [level=2] [ref=e57]
+        - generic [ref=e58]: →
+      - link "02 / le studio Travail →" [ref=e60] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e61]: 02 / le studio
+        - heading "Travail" [level=2] [ref=e62]
+        - generic [ref=e63]: →

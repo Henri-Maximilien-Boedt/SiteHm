@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HMB — Kinétique éditorial (maquette D)</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@400,500,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0C0B0E;
+  --ink:#F4F1EA;
+  --muted:#7a7680;
+  --acc:#F2C230;          /* default: the Petit-Prince yellow; recolors per photo on hover */
+  --display:"Zodiak",Georgia,serif;    /* editorial co-star */
+  --body:"General Sans",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.045;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* loader */
+#loader{position:fixed;inset:0;z-index:80;background:var(--bg);display:grid;place-items:center;transition:opacity .7s,visibility .7s}
+#loader.done{opacity:0;visibility:hidden}
+#loader .big{font-family:var(--display);font-weight:500;font-size:clamp(6rem,30vw,26rem);line-height:.8;position:relative}
+#loader .big em{font-style:italic;color:var(--acc)}
+#wipe{position:absolute;left:0;bottom:-.1em;height:.08em;background:var(--acc);width:0%}
+
+/* header */
+header{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 2.2rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+header .brand{font-family:var(--display);font-size:1.1rem;letter-spacing:0;text-transform:none}
+header .brand em{font-style:italic;color:var(--acc)}
+header nav{display:flex;gap:1.4rem;color:var(--muted)}
+header nav button{background:none;border:none;color:inherit;font:inherit;cursor:pointer;text-transform:uppercase;letter-spacing:inherit}
+header nav .on{color:var(--ink)}
+
+/* hero */
+.hero{min-height:100dvh;padding:8.5rem 2.2rem 0;display:flex;flex-direction:column;justify-content:space-between}
+.heptop{display:grid;grid-template-columns:1fr auto;align-items:end;gap:1rem}
+.lede{max-width:34ch;font-size:clamp(1rem,1.5vw,1.35rem);line-height:1.35;color:#d8d3ca}
+.lede b{color:var(--acc);font-weight:600}
+.year{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.16em;text-align:right;line-height:1.9;text-transform:uppercase}
+
+.name{font-family:var(--display);font-weight:500;line-height:.86;letter-spacing:-.02em;margin:.2em 0 .1em;
+  font-size:clamp(3rem,15.5vw,16rem);text-transform:none}
+.name .row{display:block;overflow:hidden}
+.name .row span{display:inline-block;will-change:transform}
+.name .it{font-style:italic;color:var(--acc)}
+
+/* marquee */
+.marq{border-top:1px solid rgba(244,241,234,.14);border-bottom:1px solid rgba(244,241,234,.14);overflow:hidden;white-space:nowrap;margin-top:1.2rem}
+.marq .track{display:inline-flex;gap:2.4rem;padding:.8rem 0;animation:scroll 26s linear infinite;font-family:var(--display);font-size:clamp(1.1rem,2.4vw,2.2rem);font-style:italic}
+.marq .track span{color:var(--muted)}
+.marq .track b{color:var(--ink);font-style:normal;font-weight:500}
+.marq .dot{color:var(--acc);font-style:normal}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* filmstrip gallery (duotone -> color on hover, draggable) */
+.filmwrap{padding:1.4rem 0 2rem}
+.filmhead{display:flex;justify-content:space-between;padding:0 2.2rem .9rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.film{display:flex;gap:1rem;padding:0 2.2rem;cursor:grab;user-select:none}
+.film.drag{cursor:grabbing}
+.card{position:relative;flex:0 0 auto;width:30vw;max-width:460px;aspect-ratio:4/3;overflow:hidden;background:#141217}
+.card.p{aspect-ratio:3/4;width:20vw;max-width:320px}
+.card img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.08) brightness(1.02);transition:filter .6s cubic-bezier(.16,1,.3,1),transform .9s}
+.card .duo{position:absolute;inset:0;background:var(--c);mix-blend-mode:color;opacity:.85;transition:opacity .6s}
+.card .mul{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(12,11,14,.75));pointer-events:none}
+.card:hover img{filter:grayscale(0) contrast(1.03);transform:scale(1.04)}
+.card:hover .duo{opacity:0}
+.card .cap{position:absolute;left:.8rem;bottom:.7rem;z-index:2;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-shadow:0 1px 10px #000}
+.card .cap i{color:var(--c-ink,var(--acc));font-style:normal}
+
+/* doors */
+.doors{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(244,241,234,.14)}
+.door{position:relative;padding:2rem 2.2rem 2.2rem;text-decoration:none;color:var(--ink);overflow:hidden;display:flex;flex-direction:column;gap:.3rem}
+.door+.door{border-left:1px solid rgba(244,241,234,.14)}
+.door small{font-family:var(--mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.door h2{font-family:var(--display);font-weight:500;font-size:clamp(1.8rem,5vw,4.4rem);line-height:1;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.door h2 .it{font-style:italic;color:var(--acc)}
+.door .peek{position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .6s}
+.door .peek img{width:100%;height:100%;object-fit:cover;filter:grayscale(.4) brightness(.45)}
+.door:hover h2{transform:translateX(10px)}
+.door:hover .peek{opacity:.6}
+
+@media (max-width:720px){
+  .name{font-size:19vw}
+  .card{width:72vw}.card.p{width:52vw}
+  .doors{grid-template-columns:1fr}.door+.door{border-left:none;border-top:1px solid rgba(244,241,234,.14)}
+  .heptop{grid-template-columns:1fr}.year{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<div id="loader"><div class="big">1<em>0</em>0<span id="wipe"></span></div></div>
+
+<header>
+  <div class="brand">Henri-Max<em>.</em>B</div>
+  <nav>
+    <span><button class="on">FR</button> / <button>EN</button></span>
+    <button id="sound">◦ son</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="heptop">
+      <p class="lede">Étudiant en info, photographe, <b>développeur web</b>. Cofondateur de L&amp;M Computing. Je cadre la lumière, j'écris le code.</p>
+      <div class="year">Belgique / Luxembourg<br>Portfolio — éd. 2026<br>No. D · kinétique</div>
+    </div>
+
+    <h1 class="name" id="name">
+      <span class="row"><span data-d="1">Henri</span><span class="it" data-d="1.5">‑Maximilien</span></span>
+      <span class="row"><span data-d="2">Boedt</span></span>
+    </h1>
+
+    <div class="marq">
+      <div class="track">
+        <span>Photographe</span><b class="dot">●</b><b>Motorsport</b><span>Paysage</span><b class="dot" style="color:var(--acc)">●</b><span>Séoul</span><b>Développeur</b><span class="dot">/</span><span>HomeLab</span><b>L&amp;M Computing</b><span class="dot">●</span>
+        <span>Photographe</span><b class="dot">●</b><b>Motorsport</b><span>Paysage</span><b class="dot">●</b><span>Séoul</span><b>Développeur</b><span class="dot">/</span><span>HomeLab</span><b>L&amp;M Computing</b><span class="dot">●</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="filmwrap">
+    <div class="filmhead"><span>Glissez →</span><span>24 cadres · 5 séries</span></div>
+    <div class="film" id="film"></div>
+  </div>
+</section>
+
+<div class="doors">
+  <a class="door" href="#">
+    <small>La série — 4 chapitres</small>
+    <h2>Photo<span class="it">graphie</span></h2>
+    <span class="peek"><img src="./assets/DSC_2904.jpg" alt=""></span>
+  </a>
+  <a class="door" href="#">
+    <small>Le studio — CV &amp; projets</small>
+    <h2>Tra<span class="it">vail</span></h2>
+    <span class="peek"><img src="./assets/_BDR0798.jpg" alt=""></span>
+  </a>
+</div>
+
+<script>
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const SHOT=location.search.includes('shot');
+
+/* filmstrip: [file, caption, dominant-color] */
+const cards=[
+  ['DSC_3825','Busan · Le Petit Prince','#F2C230','p'],
+  ['DSC_2753','Séoul · marché','#D9643C',''],
+  ['DSC_2915','Séoul · verre','#2FA89A',''],
+  ['DSC_6586','Lac · crépuscule','#7A4FA3','p'],
+  ['_BDR8864','Sicile · Monte Cofano','#3E78C8',''],
+  ['DSC_3944','Busan · port','#E0574E',''],
+  ['_BDR7734','Alpes · alpenglow','#D98C7A',''],
+  ['DSC_2930','Séoul · rue','#C25A3A','p'],
+  ['DSC_2706','Séoul · DDP','#8FA6C8',''],
+  ['DSC_3949','Haeundae · tours','#5E86B0',''],
+];
+const film=document.getElementById('film');
+cards.forEach(c=>{
+  const d=document.createElement('a');d.href='#';d.className='card'+(c[3]==='p'?' p':'');
+  d.style.setProperty('--c',c[2]);d.style.setProperty('--c-ink',c[2]);
+  d.innerHTML=`<img src="./assets/${c[0]}.jpg" alt="${c[1]}"><div class="duo"></div><div class="mul"></div><span class="cap"><i>■</i> ${c[1]}</span>`;
+  d.addEventListener('pointerenter',()=>document.documentElement.style.setProperty('--acc',c[2]));
+  film.appendChild(d);
+});
+
+/* loader */
+const loader=document.getElementById('loader'),wipe=document.getElementById('wipe');
+if(reduce||SHOT){loader.classList.add('done')}
+else{let p=0;const t=()=>{p+=Math.max(1,(100-p)*.07);if(p>=100)p=100;wipe.style.width=p+'%';
+  if(p<100)requestAnimationFrame(t);else setTimeout(()=>loader.classList.add('done'),450)};requestAnimationFrame(t)}
+
+/* kinetic name: react to mouse */
+const name=document.getElementById('name'),parts=[...name.querySelectorAll('span[data-d]')];
+if(!reduce){addEventListener('pointermove',e=>{const nx=(e.clientX/innerWidth-.5),ny=(e.clientY/innerHeight-.5);
+  parts.forEach(s=>{const d=parseFloat(s.dataset.d);s.style.transform=`translate(${nx*22*d}px,${ny*10*d}px)`})})}
+
+/* draggable filmstrip */
+let down=false,sx=0,st=0;
+film.addEventListener('pointerdown',e=>{down=true;film.classList.add('drag');sx=e.clientX;st=film.scrollLeft});
+addEventListener('pointerup',()=>{down=false;film.classList.remove('drag')});
+addEventListener('pointermove',e=>{if(!down)return;film.scrollLeft=st-(e.clientX-sx)*1.4});
+film.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){film.scrollLeft+=e.deltaY;e.preventDefault()}},{passive:false});
+film.style.overflowX='auto';film.style.scrollbarWidth='none';
+
+const sbtn=document.getElementById('sound');let son=false;
+sbtn.onclick=()=>{son=!son;sbtn.textContent=son?'● son':'◦ son';sbtn.style.color=son?'var(--acc)':''};
+</script>
+</body>
+</html>

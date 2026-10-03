@@ -1,0 +1,65 @@
+- main [ref=f7e2]:
+  - generic [ref=f7e3]:
+    - generic [ref=f7e4]: 0%
+    - generic [ref=f7e5]: Henri-Maximilien BoedtNocturnela chambre noire
+  - generic [ref=f7e6]:
+    - link "HMB · studio" [ref=f7e7] [cursor=pointer]:
+      - /url: /fr
+    - navigation [ref=f7e8]:
+      - generic [ref=f7e9]: Luxembourg / Belgique
+      - generic [ref=f7e11]:
+        - text: FR /
+        - link "EN" [ref=f7e12] [cursor=pointer]:
+          - /url: /en
+      - button "Son ◦ off" [ref=f7e13] [cursor=pointer]
+  - region "Galerie" [ref=f7e14]:
+    - generic [ref=f7e15]:
+      - figure "Séoul · DDP" [ref=f7e16]:
+        - img "Séoul · DDP" [ref=f7e17]
+      - figure "Ukai · pêche au feu" [ref=f7e19]:
+        - img "Ukai · pêche au feu" [ref=f7e20]
+      - figure "Osaka · nuit" [ref=f7e22]:
+        - img "Osaka · nuit" [ref=f7e23]
+      - figure "Etna" [ref=f7e25]:
+        - img "Etna" [ref=f7e26]
+      - figure "Feu sur l'eau" [ref=f7e28]:
+        - img "Feu sur l'eau" [ref=f7e29]
+      - figure "Séoul · DDP" [ref=f7e31]:
+        - img "Séoul · DDP" [ref=f7e32]
+      - figure "Spa · motorsport" [ref=f7e34]:
+        - img "Spa · motorsport" [ref=f7e35]
+      - figure "Lac · crépuscule" [ref=f7e37]:
+        - img "Lac · crépuscule" [ref=f7e38]
+      - figure "Séoul · DDP" [ref=f7e40]:
+        - img "Séoul · DDP" [ref=f7e41]
+      - figure "Osaka · heure bleue" [ref=f7e43]:
+        - img "Osaka · heure bleue" [ref=f7e44]
+      - figure "Pleine lune" [ref=f7e46]:
+        - img "Pleine lune" [ref=f7e47]
+      - figure "Séoul · DDP" [ref=f7e49]:
+        - img "Séoul · DDP" [ref=f7e50]
+      - figure "Busan · Petit Prince" [ref=f7e52]:
+        - img "Busan · Petit Prince" [ref=f7e53]
+      - figure "Osaka · canal" [ref=f7e55]:
+        - img "Osaka · canal" [ref=f7e56]
+      - figure "Alpes" [ref=f7e58]:
+        - img "Alpes" [ref=f7e59]
+      - figure "Pit lane" [ref=f7e61]:
+        - img "Pit lane" [ref=f7e62]
+    - generic:
+      - paragraph: Photographe · Développeur web
+      - heading "Henri-Maximilien Boedt" [level=1]:
+        - generic: Henri-Maximilien
+        - generic: Boedt
+      - paragraph: Je photographie la lumière dans le noir. Je construis des sites qui font la même chose.
+    - navigation "Entrées" [ref=f7e64]:
+      - link "la série Photographie" [ref=f7e65] [cursor=pointer]:
+        - /url: /fr/photographie
+        - generic [ref=f7e66]: la série
+        - heading "Photographie" [level=2] [ref=f7e67]
+        - generic [aria-hidden] [ref=f7e68]: →
+      - link "le studio Travail" [ref=f7e70] [cursor=pointer]:
+        - /url: /fr/travail
+        - generic [ref=f7e71]: le studio
+        - heading "Travail" [level=2] [ref=f7e72]
+        - generic [aria-hidden] [ref=f7e73]: →

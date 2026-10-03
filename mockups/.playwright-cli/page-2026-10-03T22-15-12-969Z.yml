@@ -1,0 +1,56 @@
+- generic [active] [ref=f3e1]:
+  - banner [ref=f3e2]:
+    - link "← Accueil" [ref=f3e3] [cursor=pointer]:
+      - /url: ./a-nocturne.html
+    - generic [ref=f3e4]: Séoul — 01 / 04 séries
+    - generic [ref=f3e5]: FR / EN
+  - generic [ref=f3e6]:
+    - img "Séoul, Dongdaemun Design Plaza" [ref=f3e8]
+    - generic [ref=f3e10]: scroll ↓ flou de vélocité actif motorsport ⚡ flou ×3
+    - generic [ref=f3e11]:
+      - generic [ref=f3e12]: Série 01 · Corée du Sud
+      - heading "Séoul" [level=1] [ref=f3e13]
+      - generic [ref=f3e14]:
+        - generic [ref=f3e15]: 14 cadres · 2024
+        - generic [ref=f3e16]: Nikon Z6III
+        - generic [ref=f3e17]: 28·75 mm f/2.8
+        - generic [ref=f3e18]: Dongdaemun · nuit · rue
+  - paragraph [ref=f3e19]: Une ville qui se lit en courbes d'acier et en néons. Le Dongdaemun Design Plaza, la rue, le fleuve, à l'heure où la lumière devient rare.
+  - paragraph [ref=f3e20]: // texte de série définitif à venir depuis content/seoul.fr.md — ne pas inventer
+  - generic [ref=f3e21]:
+    - generic [ref=f3e22]:
+      - img "Escalier du DDP, Séoul" [ref=f3e23]
+      - generic [ref=f3e24]: DDP · escalier — 28mm · f/2.8 · 1/1000s · ISO100
+    - generic [ref=f3e25]:
+      - generic [ref=f3e26]:
+        - img "DDP, plafond" [ref=f3e27]
+        - generic [ref=f3e28]: DDP · voûte — 75mm · f/2.8 · ISO1000
+      - generic [ref=f3e29]:
+        - img "DDP, caverne" [ref=f3e30]
+        - generic [ref=f3e31]: DDP · caverne — 47mm · f/2.8
+    - generic [ref=f3e32]:
+      - img "Courbes du DDP" [ref=f3e33]
+      - generic [ref=f3e34]: DDP · courbes — 75mm · f/2.8 · 1/125s
+    - generic [ref=f3e35]:
+      - img "Rue de marché, Séoul" [ref=f3e36]
+      - generic [ref=f3e37]: Hongdae · la rue — 62mm · f/2.8 · 1/2500s
+    - generic [ref=f3e38]:
+      - generic [ref=f3e39]:
+        - img "Reflet de verre teinté" [ref=f3e40]
+        - generic [ref=f3e41]: Verre · reflet — 1/125s · ISO100
+      - generic [ref=f3e42]:
+        - generic [ref=f3e43]: Entre les tours.
+        - text: Le verre renvoie la ville à elle-même, turquoise. // légende définitive à venir.
+    - generic [ref=f3e44]:
+      - img "DDP et ciel" [ref=f3e45]
+      - generic [ref=f3e46]: DDP · béton & ciel — 40mm · f/2.8
+    - generic [ref=f3e47]:
+      - img "Séoul depuis Namsan" [ref=f3e48]
+      - generic [ref=f3e49]: Namsan · panorama — 75mm · f/2.8
+    - generic [ref=f3e50]:
+      - img "Namsan Tower, ciel d'orage" [ref=f3e51]
+      - generic [ref=f3e52]: Namsan Tower · orage — 1/80s · ISO100
+  - generic [ref=f3e53]:
+    - generic [ref=f3e54]: Série suivante
+    - link "Motorsport →" [ref=f3e55] [cursor=pointer]:
+      - /url: "#"

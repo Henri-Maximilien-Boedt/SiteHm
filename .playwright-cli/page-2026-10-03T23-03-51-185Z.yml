@@ -1,0 +1,80 @@
+- generic [active] [ref=f16e72]:
+  - banner [ref=f16e73]:
+    - link "← Toutes les séries" [ref=f16e74] [cursor=pointer]:
+      - /url: /fr/photographie
+    - generic [ref=f16e75]: Séoul · 02 / 4
+    - generic [ref=f16e76]:
+      - text: FR /
+      - link "EN" [ref=f16e77] [cursor=pointer]:
+        - /url: /en/photographie/seoul
+  - main [ref=f16e78]:
+    - generic [ref=f16e79]:
+      - img "Séoul" [ref=f16e81]
+      - generic [ref=f16e83]:
+        - paragraph [ref=f16e84]: Photographie · 02
+        - heading "Séoul" [level=1] [ref=f16e85]
+        - paragraph [ref=f16e86]:
+          - generic [ref=f16e87]: 22 cadres · 2024
+          - generic [ref=f16e88]: Corée du Sud
+    - paragraph [ref=f16e89]: // Texte de série définitif à venir.
+    - generic [ref=f16e90]:
+      - figure "DDP · escalier 28mm · f/2.8 · 1/1000s · ISO100" [ref=f16e91]:
+        - img "DDP · escalier" [ref=f16e92]
+      - generic [ref=f16e94]:
+        - figure "DDP · béton & ciel 28mm · f/2.8 · 1/3200s · ISO100" [ref=f16e95]:
+          - img "DDP · béton & ciel" [ref=f16e96]
+        - figure "Rue de marché 62mm · f/2.8 · 1/2500s · ISO100" [ref=f16e98]:
+          - img "Rue de marché" [ref=f16e99]
+      - figure "Han · pont 40mm · f/2.8 · 1/1600s · ISO100" [ref=f16e101]:
+        - img "Han · pont" [ref=f16e102]
+      - generic [ref=f16e104]:
+        - figure "Namsan · panorama 75mm · f/2.8 · 1/1250s · ISO100" [ref=f16e105]:
+          - img "Namsan · panorama" [ref=f16e106]
+        - figure "DDP · courbes 75mm · f/2.8 · 1/125s · ISO100" [ref=f16e108]:
+          - img "DDP · courbes" [ref=f16e109]
+      - figure "DDP · voûte 75mm · f/2.8 · 1/80s · ISO1000" [ref=f16e111]:
+        - img "DDP · voûte" [ref=f16e112]
+      - figure "DDP · faille 75mm · f/2.8 · 1/80s · ISO1100" [ref=f16e114]:
+        - img "DDP · faille" [ref=f16e115]
+      - figure "DDP · caverne 47mm · f/2.8 · 1/100s · ISO100" [ref=f16e117]:
+        - img "DDP · caverne" [ref=f16e118]
+      - generic [ref=f16e120]:
+        - figure "DDP · tunnel 28mm · f/2.8 · 1/40s · ISO100" [ref=f16e121]:
+          - img "DDP · tunnel" [ref=f16e122]
+        - figure "Verre · reflet 1/125s · ISO100" [ref=f16e124]:
+          - img "Verre · reflet" [ref=f16e125]
+      - figure "Rue · Séoul 1/500s · ISO100" [ref=f16e127]:
+        - img "Rue · Séoul" [ref=f16e128]
+      - generic [ref=f16e130]:
+        - figure "Namsan · orage 1/80s · ISO100" [ref=f16e131]:
+          - img "Namsan · orage" [ref=f16e132]
+        - figure "Arche · surimpression 43mm · f/2.8 · 1s · ISO220" [ref=f16e134]:
+          - img "Arche · surimpression" [ref=f16e135]
+      - figure "Bouée 75mm · f/2.8 · 1/8000s · ISO100" [ref=f16e137]:
+        - img "Bouée" [ref=f16e138]
+      - figure "Port de pêche 36mm · f/2.8 · 1/8000s · ISO125" [ref=f16e140]:
+        - img "Port de pêche" [ref=f16e141]
+      - figure "Horizon de mer 75mm · f/2.8 · 1/8000s · ISO140" [ref=f16e143]:
+        - img "Horizon de mer" [ref=f16e144]
+      - generic [ref=f16e146]:
+        - figure "Busan · Le Petit Prince 28mm · f/2.8 · 1/8000s · ISO450" [ref=f16e147]:
+          - img "Busan · Le Petit Prince" [ref=f16e148]
+        - figure "Busan · statue 28mm · f/2.8 · 1/8000s · ISO160" [ref=f16e150]:
+          - img "Busan · statue" [ref=f16e151]
+      - figure "Busan · port 28mm · f/2.8 · 1/8000s · ISO360" [ref=f16e153]:
+        - img "Busan · port" [ref=f16e154]
+      - generic [ref=f16e156]:
+        - figure "Haeundae · tours 28mm · f/2.8 · 1/5000s · ISO1000" [ref=f16e157]:
+          - img "Haeundae · tours" [ref=f16e158]
+        - figure "Busan · côte 70mm · f/2.8 · 1/5000s · ISO1000" [ref=f16e160]:
+          - img "Busan · côte" [ref=f16e161]
+    - navigation [ref=f16e163]:
+      - generic [ref=f16e164]: Série suivante
+      - link "Paysage →" [ref=f16e165] [cursor=pointer]:
+        - /url: /fr/photographie/paysage
+  - generic [ref=f16e51]:
+    - button [ref=f16e52]
+    - button [ref=f16e58]
+    - button [ref=f16e62]
+    - button [ref=f16e67]
+  - generic [ref=f16e166]: Photographie — Henri-Maximilien Boedt

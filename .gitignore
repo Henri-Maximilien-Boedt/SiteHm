@@ -51,3 +51,10 @@ Desktop.ini
 *.swp
 *.swo
 *~
+
+# Astro
+.astro/
+
+# Photos originaux (lourds, ~150 Mo) — régénérables via scripts/gen-content.mjs,
+# gardés en local. Le build n'en a pas besoin (il utilise src/content + public).
+/photos/

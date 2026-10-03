@@ -1,0 +1,79 @@
+- generic [active] [ref=f1e1]:
+  - banner [ref=f1e2]:
+    - link "← Toutes les séries" [ref=f1e3] [cursor=pointer]:
+      - /url: /fr/photographie
+    - generic [ref=f1e4]: Séoul · 02 / 4
+    - generic [ref=f1e5]:
+      - text: FR /
+      - link "EN" [ref=f1e6] [cursor=pointer]:
+        - /url: /en/photographie/seoul
+  - main [ref=f1e7]:
+    - generic [ref=f1e8]:
+      - img "Séoul" [ref=f1e10]
+      - generic [ref=f1e12]:
+        - paragraph [ref=f1e13]: Photographie · 02
+        - heading "Séoul" [level=1] [ref=f1e14]
+        - paragraph [ref=f1e15]:
+          - generic [ref=f1e16]: 22 cadres · 2024
+          - generic [ref=f1e17]: Corée du Sud
+    - paragraph [ref=f1e18]: // Texte de série définitif à venir.
+    - generic [ref=f1e19]:
+      - figure "DDP · escalier 28mm · f/2.8 · 1/1000s · ISO100" [ref=f1e20]:
+        - img "DDP · escalier" [ref=f1e21]
+      - generic [ref=f1e23]:
+        - figure "DDP · béton & ciel 28mm · f/2.8 · 1/3200s · ISO100" [ref=f1e24]:
+          - img "DDP · béton & ciel" [ref=f1e25]
+        - figure "Rue de marché 62mm · f/2.8 · 1/2500s · ISO100" [ref=f1e27]:
+          - img "Rue de marché" [ref=f1e28]
+      - figure "Han · pont 40mm · f/2.8 · 1/1600s · ISO100" [ref=f1e30]:
+        - img "Han · pont" [ref=f1e31]
+      - generic [ref=f1e33]:
+        - figure "Namsan · panorama 75mm · f/2.8 · 1/1250s · ISO100" [ref=f1e34]:
+          - img "Namsan · panorama" [ref=f1e35]
+        - figure "DDP · courbes 75mm · f/2.8 · 1/125s · ISO100" [ref=f1e37]:
+          - img "DDP · courbes" [ref=f1e38]
+      - figure "DDP · voûte 75mm · f/2.8 · 1/80s · ISO1000" [ref=f1e40]:
+        - img "DDP · voûte" [ref=f1e41]
+      - figure "DDP · faille 75mm · f/2.8 · 1/80s · ISO1100" [ref=f1e43]:
+        - img "DDP · faille" [ref=f1e44]
+      - figure "DDP · caverne 47mm · f/2.8 · 1/100s · ISO100" [ref=f1e46]:
+        - img "DDP · caverne" [ref=f1e47]
+      - generic [ref=f1e49]:
+        - figure "DDP · tunnel 28mm · f/2.8 · 1/40s · ISO100" [ref=f1e50]:
+          - img "DDP · tunnel" [ref=f1e51]
+        - figure "Verre · reflet 1/125s · ISO100" [ref=f1e53]:
+          - img "Verre · reflet" [ref=f1e54]
+      - figure "Rue · Séoul 1/500s · ISO100" [ref=f1e56]:
+        - img "Rue · Séoul" [ref=f1e57]
+      - generic [ref=f1e59]:
+        - figure "Namsan · orage 1/80s · ISO100" [ref=f1e60]:
+          - img "Namsan · orage" [ref=f1e61]
+        - figure "Arche · surimpression 43mm · f/2.8 · 1s · ISO220" [ref=f1e63]:
+          - img "Arche · surimpression" [ref=f1e64]
+      - figure "Bouée 75mm · f/2.8 · 1/8000s · ISO100" [ref=f1e66]:
+        - img "Bouée" [ref=f1e67]
+      - figure "Port de pêche 36mm · f/2.8 · 1/8000s · ISO125" [ref=f1e69]:
+        - img "Port de pêche" [ref=f1e70]
+      - figure "Horizon de mer 75mm · f/2.8 · 1/8000s · ISO140" [ref=f1e72]:
+        - img "Horizon de mer" [ref=f1e73]
+      - generic [ref=f1e75]:
+        - figure "Busan · Le Petit Prince 28mm · f/2.8 · 1/8000s · ISO450" [ref=f1e76]:
+          - img "Busan · Le Petit Prince" [ref=f1e77]
+        - figure "Busan · statue 28mm · f/2.8 · 1/8000s · ISO160" [ref=f1e79]:
+          - img "Busan · statue" [ref=f1e80]
+      - figure "Busan · port 28mm · f/2.8 · 1/8000s · ISO360" [ref=f1e82]:
+        - img "Busan · port" [ref=f1e83]
+      - generic [ref=f1e85]:
+        - figure "Haeundae · tours 28mm · f/2.8 · 1/5000s · ISO1000" [ref=f1e86]:
+          - img "Haeundae · tours" [ref=f1e87]
+        - figure "Busan · côte 70mm · f/2.8 · 1/5000s · ISO1000" [ref=f1e89]:
+          - img "Busan · côte" [ref=f1e90]
+    - navigation [ref=f1e92]:
+      - generic [ref=f1e93]: Série suivante
+      - link "Paysage →" [ref=f1e94] [cursor=pointer]:
+        - /url: /fr/photographie/paysage
+  - generic [ref=f1e97]:
+    - button [ref=f1e98]
+    - button [ref=f1e104]
+    - button [ref=f1e108]
+    - button [ref=f1e113]

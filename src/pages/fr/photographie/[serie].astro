@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import SeriesPage from '../../../components/photo/SeriesPage.astro';
+
+export async function getStaticPaths() {
+  const series = await getCollection('series');
+  return series.map((s) => ({ params: { serie: s.id } }));
+}
+const { serie } = Astro.params;
+---
+<Base title={`Photographie — Henri-Maximilien Boedt`}>
+  <SeriesPage lang="fr" slug={serie!} />
+</Base>

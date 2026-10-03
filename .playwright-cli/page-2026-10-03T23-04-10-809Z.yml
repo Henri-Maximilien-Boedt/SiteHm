@@ -1,0 +1,167 @@
+- generic [active] [ref=f17e1]:
+  - banner [ref=f17e2]:
+    - link "← Accueil" [ref=f17e3] [cursor=pointer]:
+      - /url: /fr
+    - generic [ref=f17e4]: Travail / CV
+    - generic [ref=f17e5]:
+      - text: FR /
+      - link "EN" [ref=f17e6] [cursor=pointer]:
+        - /url: /en/travail
+  - main [ref=f17e7]:
+    - generic [ref=f17e8]:
+      - generic [ref=f17e9]:
+        - paragraph [ref=f17e10]: Le studio · CV
+        - heading "Travail" [level=1] [ref=f17e11]
+        - paragraph [ref=f17e12]:
+          - text: Étudiant en informatique, photographe et développeur web. Cofondateur de
+          - link "L&M Computing" [ref=f17e13] [cursor=pointer]:
+            - /url: https://lm-computing.com
+          - text: . Je conçois et je construis, du cadrage au déploiement.
+        - generic [ref=f17e14]:
+          - link "↓ Télécharger le CV (PDF)" [ref=f17e15] [cursor=pointer]:
+            - /url: "#"
+          - link "Ouvrir le terminal ▌" [ref=f17e16] [cursor=pointer]:
+            - /url: "#terminal"
+        - paragraph [ref=f17e17]: // bio & dates définitives à venir depuis content/cv.fr.md, contenu ci-dessous = structure
+      - generic [ref=f17e18]:
+        - paragraph [ref=f17e19]: Parcours
+        - heading "Expérience & formation" [level=2] [ref=f17e20]
+        - generic [ref=f17e21]:
+          - generic [ref=f17e22]:
+            - heading "Expérience" [level=3] [ref=f17e23]
+            - generic [ref=f17e24]:
+              - generic [ref=f17e25]: 2023 · présent
+              - generic [ref=f17e26]: Cofondateur · L&M Computing
+              - generic [ref=f17e27]: Studio web & systèmes
+              - generic [ref=f17e28]: Conception, développement et déploiement de sites et d’infrastructures.
+            - generic [ref=f17e29]:
+              - generic [ref=f17e30]: en cours
+              - generic [ref=f17e31]: Photographe indépendant
+              - generic [ref=f17e32]: Motorsport · paysage · urbain
+              - generic [ref=f17e33]: Reportage et séries d’auteur.
+            - generic [ref=f17e34]:
+              - generic [ref=f17e35]: à compléter
+              - generic [ref=f17e36]: HomeLab
+              - generic [ref=f17e37]: Systèmes & réseau
+              - generic [ref=f17e38]: Services auto-hébergés, apprentissage infra.
+          - generic [ref=f17e39]:
+            - heading "Formation" [level=3] [ref=f17e40]
+            - generic [ref=f17e41]:
+              - generic [ref=f17e42]: en cours
+              - generic [ref=f17e43]: Études en informatique
+              - generic [ref=f17e44]: (établissement à confirmer)
+              - generic [ref=f17e45]: Développement logiciel & web, systèmes.
+            - generic [ref=f17e46]:
+              - generic [ref=f17e47]: à compléter
+              - generic [ref=f17e48]: Secondaire
+              - generic [ref=f17e49]: (tbc)
+      - generic [ref=f17e50]:
+        - paragraph [ref=f17e51]: Sélection
+        - heading "Projets" [level=2] [ref=f17e52]
+        - generic [ref=f17e53]:
+          - link "Entreprise · cofondateur L&M Computing Studio web & systèmes. Sites sur mesure, performants et accessibles, du design au déploiement. lm-computing.com →" [ref=f17e54] [cursor=pointer]:
+            - /url: https://lm-computing.com
+            - generic [ref=f17e56]: Entreprise · cofondateur
+            - heading "L&M Computing" [level=3] [ref=f17e57]
+            - paragraph [ref=f17e58]: Studio web & systèmes. Sites sur mesure, performants et accessibles, du design au déploiement.
+            - generic [ref=f17e59]: lm-computing.com →
+          - link "Self-hosting HomeLab Infrastructure personnelle, services auto-hébergés. étude de cas →" [ref=f17e60] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=f17e62]: Self-hosting
+            - heading "HomeLab" [level=3] [ref=f17e63]
+            - paragraph [ref=f17e64]: Infrastructure personnelle, services auto-hébergés.
+            - generic [ref=f17e65]: étude de cas →
+          - link "Pratique d’auteur Photographie Quatre séries. La lumière dans le noir. voir les séries →" [ref=f17e66] [cursor=pointer]:
+            - /url: /fr/photographie
+            - generic [ref=f17e68]: Pratique d’auteur
+            - heading "Photographie" [level=3] [ref=f17e69]
+            - paragraph [ref=f17e70]: Quatre séries. La lumière dans le noir.
+            - generic [ref=f17e71]: voir les séries →
+      - generic [ref=f17e72]:
+        - paragraph [ref=f17e73]: Savoir-faire
+        - heading "Compétences" [level=2] [ref=f17e74]
+        - generic [ref=f17e75]:
+          - generic [ref=f17e76]:
+            - heading "Développement" [level=3] [ref=f17e77]
+            - list [ref=f17e78]:
+              - listitem [ref=f17e79]:
+                - generic [ref=f17e80]: TypeScript / JS
+                - generic [ref=f17e81]: avancé
+              - listitem [ref=f17e82]:
+                - generic [ref=f17e83]: Astro · composants
+                - generic [ref=f17e84]: courant
+              - listitem [ref=f17e85]:
+                - generic [ref=f17e86]: HTML / CSS / motion
+                - generic [ref=f17e87]: avancé
+              - listitem [ref=f17e88]:
+                - generic [ref=f17e89]: Git · CI / déploiement
+                - generic [ref=f17e90]: courant
+          - generic [ref=f17e91]:
+            - heading "Systèmes" [level=3] [ref=f17e92]
+            - list [ref=f17e93]:
+              - listitem [ref=f17e94]:
+                - generic [ref=f17e95]: Linux · self-hosting
+                - generic [ref=f17e96]: courant
+              - listitem [ref=f17e97]:
+                - generic [ref=f17e98]: Docker · réseau
+                - generic [ref=f17e99]: notions +
+              - listitem [ref=f17e100]:
+                - generic [ref=f17e101]: Cloudflare · DNS
+                - generic [ref=f17e102]: courant
+          - generic [ref=f17e103]:
+            - heading "Photographie" [level=3] [ref=f17e104]
+            - list [ref=f17e105]:
+              - listitem [ref=f17e106]:
+                - generic [ref=f17e107]: Nikon · prise de vue
+                - generic [ref=f17e108]: avancé
+              - listitem [ref=f17e109]:
+                - generic [ref=f17e110]: Lightroom · étalonnage
+                - generic [ref=f17e111]: avancé
+              - listitem [ref=f17e112]:
+                - generic [ref=f17e113]: Pose longue · vitesse
+                - generic [ref=f17e114]: avancé
+        - paragraph [ref=f17e115]: // niveaux à confirmer, volontairement sans barres de %
+      - generic [ref=f17e116]:
+        - paragraph [ref=f17e117]: Hors des sentiers
+        - heading "Terres explorées" [level=2] [ref=f17e118]
+        - generic [ref=f17e119]:
+          - generic [ref=f17e120]:
+            - generic [ref=f17e121]: entréevisa ✦
+            - generic [ref=f17e123]: Expédition 01
+            - heading "Assembly" [level=3] [ref=f17e124]
+            - generic [ref=f17e125]: coordonnées · à confirmer
+            - paragraph [ref=f17e126]: Carnet d’explorateur. (contexte définitif à venir, ne pas inventer)
+            - generic [ref=f17e127]:
+              - generic [ref=f17e128]: demoscene ?
+              - generic [ref=f17e129]: badge obtenu
+          - generic [ref=f17e130]:
+            - generic [ref=f17e131]: entréevisa ✦
+            - generic [ref=f17e133]: Expédition 02
+            - heading "Oz" [level=3] [ref=f17e134]
+            - generic [ref=f17e135]: coordonnées · à confirmer
+            - paragraph [ref=f17e136]: Carnet d’explorateur. (contexte définitif à venir, ne pas inventer)
+            - generic [ref=f17e137]:
+              - generic [ref=f17e138]: terra incognita
+              - generic [ref=f17e139]: badge obtenu
+      - generic [ref=f17e140]:
+        - paragraph [ref=f17e141]: Clin d’œil dev
+        - heading "./hmb --interactive" [level=2] [ref=f17e142]
+        - generic [ref=f17e143]:
+          - generic [ref=f17e144]: hmb@studio — bash
+          - generic [ref=f17e149]: Dernière connexion. Tapez help pour les commandes.
+          - generic [ref=f17e151]:
+            - generic [ref=f17e152]: hmb@studio:~$
+            - textbox "terminal" [ref=f17e153]
+    - generic [ref=f17e154]:
+      - paragraph [ref=f17e155]:
+        - text: Besoin d’un site comme celui-ci ?
+        - link "Parlons-en chez L&M Computing →" [ref=f17e156] [cursor=pointer]:
+          - /url: https://lm-computing.com
+      - link "hmboedt@gmail.com" [ref=f17e157] [cursor=pointer]:
+        - /url: mailto:hmboedt@gmail.com
+      - paragraph [ref=f17e158]: Henri-Maximilien Boedt · Belgique / Luxembourg · Nocturne éd. 2026
+  - generic [ref=f17e161]:
+    - button [ref=f17e162]
+    - button [ref=f17e168]
+    - button [ref=f17e172]
+    - button [ref=f17e177]

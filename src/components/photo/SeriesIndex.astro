@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import { useTranslations, type Lang } from '../../i18n/ui';
+import SubNav from '../SubNav.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allSeries = (await getCollection('series')).sort((a, b) => a.data.order - b.data.order);
+const allPhotos = await getCollection('photos');
+const countFor = (slug: string) => allPhotos.filter((p) => p.data.series === slug).length;
+---
+
+<SubNav lang={lang} back={t('nav.home')} backHref={`/${lang}`} center={t('photo.title')} reloadBack />
+
+<main class="photo">
+  <header class="photo__head u-wrap">
+    <p class="u-eyebrow">{t('photo.allseries')}</p>
+    <h1 class="photo__title">{t('photo.title')}</h1>
+    <p class="photo__lead">{t('photo.lead')}</p>
+  </header>
+
+  <ul class="series">
+    {allSeries.map((s, i) => (
+      <li class="serie" style={`--i:${i}`}>
+        <a class="serie__link" href={`/${lang}/photographie/${s.id}`} data-cursor={t('a11y.enter')}>
+          <span class="serie__media">
+            {s.data.cover && (
+              <Image
+                src={s.data.cover}
+                alt={s.data.title[lang]}
+                widths={[640, 1100, 1700]}
+                sizes="100vw"
+                transition:name={`cover-${s.id}`}
+              />
+            )}
+          </span>
+          <span class="serie__row u-wrap">
+            <span class="serie__idx u-mono">{String(i + 1).padStart(2, '0')}</span>
+            <span class="serie__name">{s.data.title[lang]}</span>
+            <span class="serie__meta u-mono">
+              {countFor(s.id)} {t('series.frames')}{s.data.location ? ` · ${s.data.location}` : ''}
+            </span>
+            <span class="serie__arrow" aria-hidden="true">→</span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</main>
+
+<style>
+  .photo { padding-top: 24vh; }
+  .photo__head { margin-bottom: 8vh; }
+  .photo__title { font-family: var(--font-display); font-weight: 600; font-size: clamp(2.5rem, 9vw, 7rem); line-height: 0.86; letter-spacing: -0.04em; text-transform: uppercase; margin: 0.4rem 0 1rem; }
+  .photo__lead { color: var(--ink-dim); max-width: 40ch; font-size: var(--step-1); }
+
+  .series { list-style: none; }
+  .serie { border-top: 1px solid var(--line); }
+  .serie:last-child { border-bottom: 1px solid var(--line); }
+  .serie__link { position: relative; display: block; text-decoration: none; color: var(--ink); overflow: hidden; }
+
+  .serie__media { position: absolute; inset: 0; z-index: 0; opacity: 0; transition: opacity 0.6s var(--ease-out); }
+  .serie__media :global(img) { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.4) brightness(0.4) contrast(1.1); transform: scale(1.06); transition: transform 1.2s var(--ease-out); }
+  .serie__link:hover .serie__media { opacity: 1; }
+  .serie__link:hover .serie__media :global(img) { transform: scale(1); }
+
+  .serie__row { position: relative; z-index: 1; display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 1.5rem; padding-block: clamp(1.4rem, 3vw, 2.8rem); }
+  .serie__idx { color: var(--muted); font-size: var(--step--1); }
+  .serie__name { font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 7vw, 6rem); letter-spacing: -0.03em; line-height: 1; transition: transform 0.5s var(--ease-out); }
+  .serie__link:hover .serie__name { transform: translateX(1.2rem); }
+  .serie__meta { color: var(--muted); font-size: var(--step--1); text-align: right; }
+  .serie__arrow { font-family: var(--font-display); font-size: 2rem; color: var(--ember); opacity: 0; transform: translateX(-10px); transition: 0.5s var(--ease-out); }
+  .serie__link:hover .serie__arrow { opacity: 1; transform: none; }
+
+  @media (max-width: 720px) {
+    .serie__row { grid-template-columns: auto 1fr auto; }
+    .serie__meta { display: none; }
+  }
+</style>
